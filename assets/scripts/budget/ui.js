@@ -17,6 +17,7 @@ const indexBudgetsSuccess = function (data) {
   data.budgets.forEach(function (budget) {
     $('#budget-display').append(`
       <div>
+        <p>ID: ${budget.id}</p>
         <p>Income: ${budget.income}</p>
         <p>Budget: ${budget.month_budget}</p>
         <p>Start Date: ${budget.start_date}</p>
