@@ -46,11 +46,11 @@ const onDeleteExpense = function (event) {
 }
 
 const addHandlers = function () {
-  $('#create-expense').on('submit', onCreateExpense)
-  $('#index-expenses').on('submit', onIndexExpenses)
-  $('#update-expense').on('submit', onUpdateExpense)
-  $('#delete-expense').on('submit', onDeleteExpense)
-  $('#show-expense').on('submit', onShowExpense)
+  $('.body-content').on('submit', '#create-expense', onCreateExpense)
+  $('.body-content').on('submit', '#index-expenses', onIndexExpenses)
+  $('.body-content').on('submit', '#show-expense', onShowExpense)
+  $('.body-content').on('submit', '#update-expense', onUpdateExpense)
+  $('.body-content').on('submit', '#delete-expense', onDeleteExpense)
 }
 
 module.exports = {

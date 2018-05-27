@@ -46,11 +46,11 @@ const onDeleteBudget = function (event) {
 }
 
 const addHandlers = function () {
-  $('#create-budget').on('submit', onCreateBudget)
-  $('#index-budgets').on('submit', onIndexBudgets)
-  $('#show-budget').on('submit', onShowBudget)
-  $('#update-budget').on('submit', onUpdateBudget)
-  $('#delete-budget').on('submit', onDeleteBudget)
+  $('.body-content').on('submit', '#create-budget', onCreateBudget)
+  $('.body-content').on('submit', '#index-budgets', onIndexBudgets)
+  $('.body-content').on('submit', '#show-budget', onShowBudget)
+  $('.body-content').on('submit', '#update-budget', onUpdateBudget)
+  $('.body-content').on('submit', '#delete-budget', onDeleteBudget)
 }
 
 module.exports = {

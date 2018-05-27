@@ -1,0 +1,73 @@
+<div class="budget">
+  <form id='create-budget'>
+    <legend>Create Month Budget</legend>
+    <input type="number" step=".01" name="budget[income]" placeholder="monthly income" required>
+    <input type="number" step=".01" name="budget[month_budget]" placeholder="budget" required>
+    <select name="budget[start_date]" required>
+      <option value="" disabled selected hidden>Month</option>
+      <option value="2018-01-01">January</option>
+      <option value="2018-02-01">February</option>
+      <option value="2018-03-01">March</option>
+      <option value="2018-04-01">April</option>
+      <option value="2018-05-01">May</option>
+      <option value="2018-06-01">June</option>
+      <option value="2018-07-01">July</option>
+      <option value="2018-08-01">August</option>
+      <option value="2018-09-01">September</option>
+      <option value="2018-10-01">October</option>
+      <option value="2018-11-01">November</option>
+      <option value="2018-12-01">December</option>
+    </select>
+    <input type="submit" class="btn-xs btn-default" value="Submit">
+  </form>
+
+<br>
+
+<form id='update-budget'>
+  <legend>Update Month Budget</legend>
+  <input type="number" name="budget[id]" placeholder="budget id" required>
+  <input type="number" step=".01" name="budget[income]" placeholder="monthly income" required>
+  <input type="number" step=".01" name="budget[month_budget]" placeholder="budget" required>
+  <select name="budget[start_date]" required>
+    <option value="" disabled selected hidden>Month</option>
+    <option value="2018-01-01">January</option>
+    <option value="2018-02-01">February</option>
+    <option value="2018-03-01">March</option>
+    <option value="2018-04-01">April</option>
+    <option value="2018-05-01">May</option>
+    <option value="2018-06-01">June</option>
+    <option value="2018-07-01">July</option>
+    <option value="2018-08-01">August</option>
+    <option value="2018-09-01">September</option>
+    <option value="2018-10-01">October</option>
+    <option value="2018-11-01">November</option>
+    <option value="2018-12-01">December</option>
+  </select>
+  <input type="submit" class="btn-xs btn-default" value="Submit">
+</form>
+
+
+<form id="index-budgets">
+  <legend>View All Budgets</legend>
+  <input type="submit" value="View Budgets">
+</form>
+
+<br>
+
+<form id="show-budget">
+  <legend>View Budget</legend>
+  <input type="number" placeholder="Budget ID" name="budget[id]" required>
+  <input type="submit" class="btn-xs btn-default" value="Submit">
+</form>
+
+<br>
+
+<form id="delete-budget">
+  <legend>Delete Budget</legend>
+  <input type="number" placeholder="Budget ID" name="budget[id]" required>
+  <input type="submit" class="btn-xs btn-default" value="Submit">
+</form>
+
+<div id="budget-display">
+</div>
+</div>

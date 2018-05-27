@@ -1,5 +1,7 @@
 'use strict'
 const store = require('../store')
+const budgetTemplate = require('../templates/budget-template.handlebars')
+const expenseTemplate = require('../templates/expense-template.handlebars')
 
 const signUpSuccess = function (data) {
   // console.log('successful signup')
@@ -26,6 +28,10 @@ const signInSuccess = function (data) {
   $('#status-message').text('Successfully signed in')
   $('#status-message').css('background-color', '#E0F0D9')
   setTimeout(() => $('#status-message').text(''), 3000)
+
+  $('.body-content').append(budgetTemplate)
+  $('.body-content').append(expenseTemplate)
+
   store.user = data.user
   $('#start').modal('hide')
   $('#sign-in').addClass('hidden')
@@ -72,6 +78,9 @@ const signOutSuccess = function (data) {
   setTimeout(() => $('#status-message').css('border', 'none'), 3000)
   $('body').addClass('home')
   store.user = null
+
+  $('.budget').remove()
+  $('.expense').remove()
 
   $('#sign-in').removeClass('hidden')
   $('#sign-up').removeClass('hidden')
