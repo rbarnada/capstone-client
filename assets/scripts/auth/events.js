@@ -10,10 +10,6 @@ const onSignUp = function (event) {
     .then(ui.signUpSuccess)
     .then(() => autoSignIn(data))
     .catch(ui.signUpFailure)
-
-  // Refactor into function in UI
-  $('#sign-up')[0].reset()
-  $('#sign-in')[0].reset()
 }
 
 const autoSignIn = function (data) {
@@ -31,8 +27,6 @@ const onSignIn = function (event) {
     .catch(ui.signInFailure)
 
   // Refactor into function in UI
-  $('#sign-up')[0].reset()
-  $('#sign-in')[0].reset()
 }
 
 const onChangePass = function (event) {
@@ -42,7 +36,6 @@ const onChangePass = function (event) {
   api.changePass(data)
     .then(ui.changePassSuccess)
     .catch(ui.changePassFailure)
-  $('#change-password')[0].reset()
 }
 
 const onSignOut = function (event) {
@@ -52,7 +45,6 @@ const onSignOut = function (event) {
   api.signOut(data)
     .then(ui.signOutSuccess)
     .catch(ui.signOutFailure)
-  $('#change-password')[0].reset()
 }
 
 const addHandlers = function () {
@@ -61,6 +53,10 @@ const addHandlers = function () {
   $('#change-password').on('submit', onChangePass)
   $('#sign-out').on('submit', onSignOut)
 }
+
+$('.modal').on('hidden.bs.modal', function (e) {
+  $('input[type="email"], input[type="password"], input[type="text"], input[type="date"], input[type="number"], textarea').val('')
+})
 
 module.exports = {
   addHandlers

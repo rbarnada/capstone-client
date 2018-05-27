@@ -3,6 +3,7 @@ const createBudgetSuccess = function (data) {
   $('#status-message').text('Successfully created budget')
   $('#status-message').css('background-color', '#E0F0D9')
   setTimeout(() => $('#status-message').text(''), 3000)
+  $('form').trigger('reset')
 }
 
 const createBudgetFailure = function (data) {
@@ -10,6 +11,7 @@ const createBudgetFailure = function (data) {
   $('#status-message').text('Could not create budget')
   $('#status-message').css('background-color', '#F2DEDE')
   setTimeout(() => $('#status-message').text(''), 3000)
+  $('form').trigger('reset')
 }
 
 const indexBudgetsSuccess = function (data) {
@@ -25,12 +27,14 @@ const indexBudgetsSuccess = function (data) {
       <hr>
     `)
   })
+  // $('form').trigger('reset')
 }
 
 const indexBudgetsFailure = function () {
   $('#status-message').text('Failed to retrieve budgets')
   $('#status-message').css('background-color', '#F2DEDE')
   setTimeout(() => $('#status-message').text(''), 3000)
+  // $('form').trigger('reset')
 }
 
 const showBudgetSuccess = function (data) {
@@ -41,12 +45,14 @@ const showBudgetSuccess = function (data) {
       <p>Start Date: ${data.budget.start_date}</p>
     </div>
   `)
+  $('form').trigger('reset')
 }
 
 const showBudgetFailure = function () {
   $('#status-message').text('Failed to retrieve budget')
   $('#status-message').css('background-color', '#F2DEDE')
   setTimeout(() => $('#status-message').text(''), 3000)
+  $('form').trigger('reset')
 }
 
 const updateBudgetSuccess = function () {
@@ -66,12 +72,14 @@ const deleteBudgetSuccess = function (data) {
   $('#status-message').text('Budget deleted')
   $('#status-message').css('background-color', '#d5fdd5')
   setTimeout(() => $('#status-message').text(''), 3000)
+  $('form').trigger('reset')
 }
 
 const deleteBudgetFailure = function (data) {
   $('#status-message').text('Failed to delete budget')
   $('#status-message').css('background-color', '#F2DEDE')
   setTimeout(() => $('#status-message').text(''), 3000)
+  $('form').trigger('reset')
 }
 module.exports = {
   createBudgetSuccess,

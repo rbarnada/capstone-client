@@ -3,6 +3,7 @@ const createExpenseSuccess = function (data) {
   $('#status-message').text('Expense added')
   $('#status-message').css('background-color', '#E0F0D9')
   setTimeout(() => $('#status-message').text(''), 3000)
+  $('form').trigger('reset')
 }
 
 const createExpenseFailure = function (data) {
@@ -10,6 +11,7 @@ const createExpenseFailure = function (data) {
   $('#status-message').text('Failed to add expense')
   $('#status-message').css('background-color', '#F2DEDE')
   setTimeout(() => $('#status-message').text(''), 3000)
+  $('form').trigger('reset')
 }
 
 const indexExpensesSuccess = function (data) {
@@ -25,12 +27,14 @@ const indexExpensesSuccess = function (data) {
       <hr>
     `)
   })
+  // $('form').trigger('reset')
 }
 
 const indexExpensesFailure = function () {
   $('#status-message').text('Failed to retrieve expenses')
   $('#status-message').css('background-color', '#F2DEDE')
   setTimeout(() => $('#status-message').text(''), 3000)
+  // $('form').trigger('reset')
 }
 
 const showExpenseSuccess = function (data) {
@@ -41,12 +45,14 @@ const showExpenseSuccess = function (data) {
       <p>Type: ${data.expense.expense_category}</p>
     </div>
   `)
+  $('form').trigger('reset')
 }
 
 const showExpenseFailure = function () {
   $('#status-message').text('Failed to retrieve expense')
   $('#status-message').css('background-color', '#F2DEDE')
   setTimeout(() => $('#status-message').text(''), 3000)
+  $('form').trigger('reset')
 }
 
 const updateExpenseSuccess = function () {
@@ -66,12 +72,14 @@ const deleteExpenseSuccess = function (data) {
   $('#status-message').text('Expense deleted')
   $('#status-message').css('background-color', '#d5fdd5')
   setTimeout(() => $('#status-message').text(''), 3000)
+  $('form').trigger('reset')
 }
 
 const deleteExpenseFailure = function (data) {
   $('#status-message').text('Failed to delete expense')
   $('#status-message').css('background-color', '#F2DEDE')
   setTimeout(() => $('#status-message').text(''), 3000)
+  $('form').trigger('reset')
 }
 
 module.exports = {

@@ -9,6 +9,7 @@ const signUpSuccess = function (data) {
   setTimeout(() => $('#up-message').css('background-color', 'white'), 3000)
   // console.log(data)
   $('#sign-up-modal').modal('hide')
+  $('form').trigger('reset')
 }
 
 const signUpFailure = function (data) {
@@ -17,7 +18,7 @@ const signUpFailure = function (data) {
   $('#up-message').css('background-color', '#F2DEDE')
   setTimeout(() => $('#up-message').text(''), 3000)
   setTimeout(() => $('#up-message').css('background-color', 'white'), 3000)
-  // console.log(data.responseText)
+  $('form').trigger('reset')
 }
 
 const signInSuccess = function (data) {
@@ -33,6 +34,7 @@ const signInSuccess = function (data) {
   $('#sign-out').removeClass('hidden')
   $('#start-modal-button').addClass('hidden')
   $('#change-password-modal-button').removeClass('hidden')
+  $('form').trigger('reset')
 }
 
 const signInFailure = function (data) {
@@ -40,6 +42,7 @@ const signInFailure = function (data) {
   $('#in-error-message').css('background-color', '#F2DEDE')
   setTimeout(() => $('#in-error-message').text(''), 3000)
   setTimeout(() => $('#in-error-message').css('background-color', 'white'), 3000)
+  $('form').trigger('reset')
 }
 
 const changePassSuccess = function (data) {
@@ -48,6 +51,7 @@ const changePassSuccess = function (data) {
   $('#status-message').css('background-color', '#E0F0D9')
   setTimeout(() => $('#status-message').text(''), 3000)
   $('.modal').modal('hide')
+  $('form').trigger('reset')
 }
 
 const changePassFailure = function (data) {
@@ -56,6 +60,7 @@ const changePassFailure = function (data) {
   $('#pass-error-message').css('background-color', '#F2DEDE')
   setTimeout(() => $('#pass-error-message').text(''), 3000)
   setTimeout(() => $('#pass-error-message').css('background-color', 'white'), 3000)
+  $('form').trigger('reset')
 }
 
 const signOutSuccess = function (data) {
@@ -74,6 +79,7 @@ const signOutSuccess = function (data) {
   $('#sign-out').addClass('hidden')
   $('#start-modal-button').removeClass('hidden')
   $('#change-password-modal-button').addClass('hidden')
+  $('form').trigger('reset')
 }
 
 const signOutFailure = function (data) {
@@ -81,6 +87,7 @@ const signOutFailure = function (data) {
   $('#status-message').text('Failure signing out')
   $('#status-message').css('background-color', '#F2DEDE')
   setTimeout(() => $('#status-message').text(''), 3000)
+  $('form').trigger('reset')
 }
 
 module.exports = {
