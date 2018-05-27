@@ -48,9 +48,9 @@ const onDeleteBudget = function (event) {
 const addHandlers = function () {
   $('.body-content').on('submit', '#create-budget', onCreateBudget)
   $('.body-content').on('submit', '#index-budgets', onIndexBudgets)
-  $('.body-content').on('submit', '#show-budget', onShowBudget)
+  $('.body-content').on('submit', '.show-budget', onShowBudget)
   $('.body-content').on('submit', '#update-budget', onUpdateBudget)
-  $('.body-content').on('submit', '#delete-budget', onDeleteBudget)
+  $('.body-content').on('submit', '.delete-budget', onDeleteBudget)
 }
 
 module.exports = {
