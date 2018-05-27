@@ -1,6 +1,6 @@
-// const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-//   'July', 'August', 'September', 'October', 'November', 'December'
-// ]
+const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
+]
 
 const createBudgetSuccess = function (data) {
   console.log('successful created budget')
@@ -48,7 +48,14 @@ const indexBudgetsFailure = function () {
 }
 
 const showBudgetSuccess = function (data) {
-  console.log(data.budget.expenses)
+  console.log(data.budget.start_date)
+
+  const getMonth = function (month) {
+    const dateArr = month.split('-') // [2018, 02, 26]
+    console.log(dateArr[1])
+    const normalizedNum = parseInt(dateArr[1]) - 1
+    return monthNames[normalizedNum]
+  }
 
   const totalSpent = function () {
     const spentArr = []
@@ -57,7 +64,7 @@ const showBudgetSuccess = function (data) {
     }
     data.budget.expenses.forEach(function (expense) {
       spentArr.push(expense.cost)
-      console.log(spentArr)
+      // console.log(spentArr)
     })
     if (data.budget.expenses.length === 0) {
       return 0
@@ -69,7 +76,7 @@ const showBudgetSuccess = function (data) {
 
   $('#budget-display').append(`
     <div>
-      <h3>Budget For: ${data.budget.start_date}</h3>
+      <h3>${getMonth(data.budget.start_date)} Budget</h3>
       <p>Income: ${data.budget.income}</p>
       <p>Budget: ${data.budget.month_budget}</p>
       <p>Total Spent: ${totalSpent()}</p>
