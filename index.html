@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Example</title>
+  <title>Budgetr</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Do not add `link` tags-->
@@ -14,255 +14,114 @@
 </head>
 
 <body>
-  <h1>Browser Template</h1>
-  <!-- NAVBAR START -->
-  <nav class="navbar navbar-inverse navbar-default navbar-fixed-top">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-6">
-          <h1>Budget</h1>
-        </div>
-        <div class="col-sm-6">
-          <button type="button" class="btn btn-default pull-right nav-button" data-toggle="modal" id='start-modal-button' data-target="#start">Sign Up / Sign In</button>
-          <form id="sign-out" class='form-field pull-right nav-button hidden'>
-            <input type="submit" class="btn btn-default" value="Sign Out">
-          </form>
-          <button type="button" id="change-password-modal-button" class="btn btn-default pull-right nav-button hidden" data-toggle="modal" data-target="#change-pass-modal">Change Password</button>
+  <div class="container">
+    <!-- NAVBAR START -->
+    <nav class="navbar navbar-inverse navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6">
+            <h1>Budget</h1>
+          </div>
+          <div class="col-sm-6">
+            <button type="button" class="btn btn-default pull-right nav-button" data-toggle="modal" id='start-modal-button' data-target="#start">Sign Up / Sign In</button>
+            <form id="sign-out" class='form-field pull-right nav-button hidden'>
+              <input type="submit" class="btn btn-default" value="Sign Out">
+            </form>
+            <button type="button" id="change-password-modal-button" class="btn btn-default pull-right nav-button hidden" data-toggle="modal" data-target="#change-pass-modal">Change Password</button>
+          </div>
         </div>
       </div>
-    </div>
-  </nav>
-  <!-- NAVBAR END -->
+    </nav>
+    <!-- NAVBAR END -->
 
-  <!-- MESSAGE SPACE  -->
-  <div id="status-message" class="status"></div>
+    <!-- MESSAGE SPACE  -->
+    <div id="status-message" class="status"></div>
 
-  <div class="body-content">
-    <!-- SIGN UP / SIGN IN MODAL START -->
-    <div class="row">
-      <div class="modal fade" id="start" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content">
-            <div class="modal-body row">
-              <!-- SIGN UP FORM STARTS HERE -->
-              <div class="col-sm-6 r-border">
-                <form id="sign-up" class='form-field'>
-                  <legend>Sign Up</legend>
-                  <div class="input-group mb-3">
-                    <div class="input-group-addon">Email</div>
-                    <input type="email" name="credentials[email]" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
-                  </div>
-                  <div class="input-group mb-3">
-                    <div class="input-group-addon">Password</div>
-                    <input type="password" name="credentials[password]" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
-                  </div>
-                  <div class="input-group mb-3">
-                    <div class="input-group-addon">Confirm Password</div>
-                    <input type="password" name="credentials[password_confirmation]" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
-                  </div>
+    <div class="body-content">
+      <!-- SIGN UP / SIGN IN MODAL START -->
+      <div class="row">
+        <div class="modal fade" id="start" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-body row">
+                <!-- SIGN UP FORM STARTS HERE -->
+                <div class="col-sm-6 r-border">
+                  <form id="sign-up" class='form-field'>
+                    <legend>Sign Up</legend>
+                    <div class="input-group mb-3">
+                      <div class="input-group-addon">Email</div>
+                      <input type="email" name="credentials[email]" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-addon">Password</div>
+                      <input type="password" name="credentials[password]" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-addon">Confirm Password</div>
+                      <input type="password" name="credentials[password_confirmation]" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
+                    </div>
 
-                  <hr>
-                  <input class="btn btn-default pull-right" type="submit" value="Sign Up">
-                  <span class="up-message " id="up-message"></span>
-                </form>
+                    <hr>
+                    <input class="btn btn-default pull-right" type="submit" value="Sign Up">
+                    <span class="up-message " id="up-message"></span>
+                  </form>
+                </div>
+
+                <!-- SIGN IN FORM STARTS HERE -->
+                <div class="col-sm-6">
+                  <form id="sign-in" class='form-field'>
+                    <legend>Sign In</legend>
+                    <div class="input-group mb-3">
+                      <div class="input-group-addon">Email</div>
+                      <input type="email" name="credentials[email]" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-addon">Password</div>
+                      <input type="password" name="credentials[password]" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
+                    </div>
+                    <hr>
+                    <input type="submit" class='btn btn-default pull-right' value="Sign In">
+                    <span class="modal-error-message" id="in-error-message"></span>
+                  </form>
+                </div>
+                <!-- SIGN UP / SIGN IN FORM ENDS HERE -->
               </div>
-
-              <!-- SIGN IN FORM STARTS HERE -->
-              <div class="col-sm-6">
-                <form id="sign-in" class='form-field'>
-                  <legend>Sign In</legend>
-                  <div class="input-group mb-3">
-                    <div class="input-group-addon">Email</div>
-                    <input type="email" name="credentials[email]" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
-                  </div>
-                  <div class="input-group mb-3">
-                    <div class="input-group-addon">Password</div>
-                    <input type="password" name="credentials[password]" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
-                  </div>
-                  <hr>
-                  <input type="submit" class='btn btn-default pull-right' value="Sign In">
-                  <span class="modal-error-message" id="in-error-message"></span>
-                </form>
-              </div>
-              <!-- SIGN UP / SIGN IN FORM ENDS HERE -->
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- SIGN UP / SIGN IN END -->
+      <!-- SIGN UP / SIGN IN MODAL END -->
 
-    <!-- CHANGE PASSWORD MODAL START -->
-    <div class="modal fade" id="change-pass-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Change Password</h4>
+      <!-- CHANGE PASSWORD MODAL START -->
+      <div class="modal fade" id="change-pass-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Change Password</h4>
+            </div>
+            <div class="modal-body">
+              <form id="change-password" class='form-field hidden'>
+                <div class="input-group mb-3">
+                  <div class="input-group-addon">Old Password</div>
+                  <input type="password" name="passwords[old]" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-addon">New Password</div>
+                  <input type="password" name="passwords[new]" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
+                </div>
+                <hr>
+                <input type="submit" class="btn btn-default pull-right" value="Submit">
+                <span class="modal-error-message" id="pass-error-message"></span>
+              </form>
+            </div>
           </div>
-          <div class="modal-body">
-            <form id="change-password" class='form-field hidden'>
-              <div class="input-group mb-3">
-                <div class="input-group-addon">Old Password</div>
-                <input type="password" name="passwords[old]" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
-              </div>
-              <div class="input-group mb-3">
-                <div class="input-group-addon">New Password</div>
-                <input type="password" name="passwords[new]" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
-              </div>
-              <hr>
-              <input type="submit" class="btn btn-default pull-right" value="Submit">
-              <span class="modal-error-message" id="pass-error-message"></span>
-            </form>
-          </div>
-          <!-- <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div> -->
         </div>
       </div>
+      <!-- CHANGE PASSWORD MODAL END -->
     </div>
-      <!-- <div class="budget">
-        <form id='create-budget'>
-          <legend>Create Month Budget</legend>
-          <input type="number" step=".01" name="budget[income]" placeholder="monthly income" required>
-          <input type="number" step=".01" name="budget[month_budget]" placeholder="budget" required>
-          <select name="budget[start_date]" required>
-            <option value="" disabled selected hidden>Month</option>
-            <option value="2018-01-01">January</option>
-            <option value="2018-02-01">February</option>
-            <option value="2018-03-01">March</option>
-            <option value="2018-04-01">April</option>
-            <option value="2018-05-01">May</option>
-            <option value="2018-06-01">June</option>
-            <option value="2018-07-01">July</option>
-            <option value="2018-08-01">August</option>
-            <option value="2018-09-01">September</option>
-            <option value="2018-10-01">October</option>
-            <option value="2018-11-01">November</option>
-            <option value="2018-12-01">December</option>
-          </select>
-          <input type="submit" class="btn-xs btn-default" value="Submit">
-        </form>
-
-      <br>
-
-      <form id='update-budget'>
-        <legend>Update Month Budget</legend>
-        <input type="number" name="budget[id]" placeholder="budget id" required>
-        <input type="number" step=".01" name="budget[income]" placeholder="monthly income" required>
-        <input type="number" step=".01" name="budget[month_budget]" placeholder="budget" required>
-        <select name="budget[start_date]" required>
-          <option value="" disabled selected hidden>Month</option>
-          <option value="2018-01-01">January</option>
-          <option value="2018-02-01">February</option>
-          <option value="2018-03-01">March</option>
-          <option value="2018-04-01">April</option>
-          <option value="2018-05-01">May</option>
-          <option value="2018-06-01">June</option>
-          <option value="2018-07-01">July</option>
-          <option value="2018-08-01">August</option>
-          <option value="2018-09-01">September</option>
-          <option value="2018-10-01">October</option>
-          <option value="2018-11-01">November</option>
-          <option value="2018-12-01">December</option>
-        </select>
-        <input type="submit" class="btn-xs btn-default" value="Submit">
-      </form>
-
-
-      <form id="index-budgets">
-        <legend>View All Budgets</legend>
-        <input type="submit" value="View Budgets">
-      </form>
-
-      <br>
-
-      <form id="show-budget">
-        <legend>View Budget</legend>
-        <input type="number" placeholder="Budget ID" name="budget[id]" required>
-        <input type="submit" class="btn-xs btn-default" value="Submit">
-      </form>
-
-      <br>
-
-      <form id="delete-budget">
-        <legend>Delete Budget</legend>
-        <input type="number" placeholder="Budget ID" name="budget[id]" required>
-        <input type="submit" class="btn-xs btn-default" value="Submit">
-      </form>
-
-      <div id="budget-display">
-      </div>
-    </div> -->
-
-      <!-- <div class="expense">
-        <form id="create-expense">
-          <legend>Create Expense</legend>
-          <input type="number" name="expense[budget_id]" placeholder="Budget ID" required>
-          <input type="date" name="expense[date]" required>
-          <input type="number" step=".01" name="expense[cost]" placeholder="Cost of Expense" required>
-          <select name="expense[expense_category]" required>
-            <option value="" disabled selected hidden>Expense Type</option>
-            <option value="Rent">Rent</option>
-            <option value="Utilities">Utilities</option>
-            <option value="Groceries">Groceries</option>
-            <option value="Auto/Transportation">Auto/Transportation</option>
-            <option value="Shopping/Entertainment">Shopping/Entertainment</option>
-            <option value="Restaurant/Dining">Restaurant/Dining</option>
-            <option value="Medical">Medical</option>
-            <option value="Eduation">Education</option>
-          </select>
-          <input type="submit" class="btn-xs btn-default" value="Submit">
-        </form>
-
-        <br>
-
-        <form id="update-expense">
-          <legend>Update Expense</legend>
-          <input type="number" name="expense[id]" placeholder="Expense ID" required>
-          <input type="date" name="expense[date]" required>
-          <input type="number" step=".01" name="expense[cost]" placeholder="Cost of Expense" required>
-          <select name="expense[expense_category]" required>
-            <option value="" disabled selected hidden>Expense Type</option>
-            <option value="Rent">Rent</option>
-            <option value="Utilities">Utilities</option>
-            <option value="Groceries">Groceries</option>
-            <option value="Auto/Transportation">Auto/Transportation</option>
-            <option value="Shopping/Entertainment">Shopping/Entertainment</option>
-            <option value="Restaurant/Dining">Restaurant/Dining</option>
-            <option value="Medical">Medical</option>
-            <option value="Eduation">Education</option>
-          </select>
-          <input type="submit" class="btn-xs btn-default" value="Submit">
-        </form>
-
-        <br>
-
-        <form id="index-expenses">
-          <legend>View All Expenses</legend>
-          <input type="submit" value="View Expenses">
-        </form>
-
-        <br>
-
-        <form id="show-expense">
-          <legend>View Expense</legend>
-          <input type="number" placeholder="Expense ID" name="expense[id]" required>
-          <input type="submit" class="btn-xs btn-default" value="Submit">
-        </form>
-
-        <br>
-
-        <form id="delete-expense">
-          <legend>Delete Expense</legend>
-          <input type="number" placeholder="Expense ID" name="expense[id]" required>
-          <input type="submit" class="btn-xs btn-default" value="Submit">
-        </form>
-
-        <div id="expense-display">
-        </div>
-      </div> -->
-    </div>
+    <div id="budget-display"></div>
+  </div>
 </body>
 
 </html>

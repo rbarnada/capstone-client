@@ -25,8 +25,6 @@ const onSignIn = function (event) {
   api.signIn(data)
     .then(ui.signInSuccess)
     .catch(ui.signInFailure)
-
-  // Refactor into function in UI
 }
 
 const onChangePass = function (event) {

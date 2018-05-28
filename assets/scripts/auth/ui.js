@@ -1,7 +1,9 @@
 'use strict'
 const store = require('../store')
-const budgetTemplate = require('../templates/budget-template.handlebars')
-const expenseTemplate = require('../templates/expense-template.handlebars')
+const budgetTemplate = require('../templates/index-budget-template.handlebars')
+const newUserBudget = require('../templates/create-first-budget.handlebars')
+
+// const expenseTemplate = require('../templates/expense-template.handlebars')
 
 const signUpSuccess = function (data) {
   // console.log('successful signup')
@@ -29,8 +31,13 @@ const signInSuccess = function (data) {
   $('#status-message').css('background-color', '#E0F0D9')
   setTimeout(() => $('#status-message').text(''), 3000)
 
-  $('.body-content').append(budgetTemplate)
-  $('.body-content').append(expenseTemplate)
+  console.log(data.user.budgets)
+  if (data.user.budgets.length === 0) {
+    $('.body-content').append(newUserBudget)
+  } else {
+    $('.body-content').append(budgetTemplate)
+  }
+  // $('.body-content').append(expenseTemplate)
 
   store.user = data.user
   $('#start').modal('hide')
@@ -81,6 +88,8 @@ const signOutSuccess = function (data) {
 
   $('.budget').remove()
   $('.expense').remove()
+  $('#show-budget-info').remove()
+  $('#welcome').remove()
 
   $('#sign-in').removeClass('hidden')
   $('#sign-up').removeClass('hidden')

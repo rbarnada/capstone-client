@@ -1,6 +1,10 @@
 $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
 
+.body-content {
+  margin-top: 100px;
+}
+
 .hidden {
   display: none;
 }
@@ -11,4 +15,14 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 
 .modal-body {
   overflow: hidden;
+}
+
+.status {
+  border-radius: 3px;
+  font-size: 20px;
+  left: 50%;
+  margin-top: 80px;
+  padding: 0 5px;
+  position: fixed;
+  transform: translateX(-50%);
 }

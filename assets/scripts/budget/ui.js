@@ -1,3 +1,8 @@
+const budgetInfo = require('../templates/show-budget-template.handlebars')
+const budgetTemplate = require('../templates/index-budget-template.handlebars')
+
+
+// Used later for determining month given yyyy-mm-dd
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December'
 ]
@@ -21,8 +26,15 @@ const createBudgetFailure = function (data) {
 const indexBudgetsSuccess = function (data) {
   console.log(data.budgets)
 
+  if (data.budgets.length === 0) {
+    $('#budget-display').append(`
+      <p> You have no budgets. Try creating one</p>
+      `)
+  }
+
   data.budgets.forEach(function (budget) {
-    // console.log(monthNames[1].getMonth())
+    // Index display data
+    // consider moving to handlebars
     $('#budget-display').append(`
       <div>
         <p>ID: ${budget.id}</p>
@@ -50,14 +62,20 @@ const indexBudgetsFailure = function () {
 const showBudgetSuccess = function (data) {
   console.log(data.budget.start_date)
 
+  // Takes string date and split on dash to create array
+  // Array values are strings, parseInt to make number
+  // Use number - 1 to get correct month from monthNames array
   const getMonth = function (month) {
     const dateArr = month.split('-') // [2018, 02, 26]
     console.log(dateArr[1])
     const normalizedNum = parseInt(dateArr[1]) - 1
     return monthNames[normalizedNum]
   }
+  const currentMonth = getMonth(data.budget.start_date)
+  console.log(currentMonth)
 
-  const totalSpent = function () {
+  // calculates total money spent during current budget
+  const findTotal = function () {
     const spentArr = []
     const findSum = function (total, num) {
       return total + num
@@ -73,20 +91,33 @@ const showBudgetSuccess = function (data) {
       return spentArr.reduce(findSum)
     }
   }
+  const totalSpent = findTotal()
+  console.log(totalSpent)
 
-  $('#budget-display').append(`
-    <div>
-      <h3>${getMonth(data.budget.start_date)} Budget</h3>
-      <p>Income: ${data.budget.income}</p>
-      <p>Budget: ${data.budget.month_budget}</p>
-      <p>Total Spent: ${totalSpent()}</p>
-      <p>Total Remaining: ${data.budget.month_budget - totalSpent()}
-      <form data-id="${data.budget.id}" class="delete-budget">
-        <input type="number" value="${data.budget.id}" name="budget[id]" hidden>
-        <input type="submit" class="btn-default btn-xs" value="Delete Budget">
-      </form>
-    </div>
-  `)
+  const getBudgetInfo = budgetInfo({
+    budget: data.budget,
+    month: currentMonth,
+    total: totalSpent,
+    remainder: data.budget.month_budget - totalSpent
+  })
+
+  $('.budget').remove()
+  $('#budget-display').append(getBudgetInfo)
+  // Show view with delete button
+  // consider moving to handlebars
+  // $('#budget-display').append(`
+  //   <div>
+  //     <h3>${getMonth(data.budget.start_date)} Budget</h3>
+  //     <p>Income: ${data.budget.income}</p>
+  //     <p>Budget: ${data.budget.month_budget}</p>
+  //     <p>Total Spent: ${totalSpent()}</p>
+  //     <p>Total Remaining: ${data.budget.month_budget - totalSpent()}
+  //     <form data-id="${data.budget.id}" class="delete-budget">
+  //       <input type="number" value="${data.budget.id}" name="budget[id]" hidden>
+  //       <input type="submit" class="btn-default btn-xs" value="Delete Budget">
+  //     </form>
+  //   </div>
+  // `)
   $('form').trigger('reset')
 }
 
@@ -123,6 +154,11 @@ const deleteBudgetFailure = function (data) {
   setTimeout(() => $('#status-message').text(''), 3000)
   $('form').trigger('reset')
 }
+
+const returnToBudgets = function () {
+  $('#show-budget-info').remove()
+  $('.body-content').append(budgetTemplate)
+}
 module.exports = {
   createBudgetSuccess,
   createBudgetFailure,
@@ -133,5 +169,6 @@ module.exports = {
   updateBudgetSuccess,
   updateBudgetFailure,
   deleteBudgetSuccess,
-  deleteBudgetFailure
+  deleteBudgetFailure,
+  returnToBudgets
 }
