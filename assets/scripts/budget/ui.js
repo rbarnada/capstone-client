@@ -1,6 +1,6 @@
 const budgetInfo = require('../templates/show-budget-template.handlebars')
 const budgetTemplate = require('../templates/index-budget-template.handlebars')
-
+const newUserBudget = require('../templates/create-first-budget.handlebars')
 
 // Used later for determining month given yyyy-mm-dd
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -13,6 +13,16 @@ const createBudgetSuccess = function (data) {
   $('#status-message').css('background-color', '#E0F0D9')
   setTimeout(() => $('#status-message').text(''), 3000)
   $('form').trigger('reset')
+
+  console.log(data)
+  // after creation of first budget, switch to budget manager view
+  if (data.budget.length === 0) {
+    $('.body-content').append(newUserBudget)
+  } else {
+    $('#welcome').remove()
+    $('.budget').remove()
+    $('.body-content').append(budgetTemplate)
+  }
 }
 
 const createBudgetFailure = function (data) {
@@ -61,7 +71,6 @@ const indexBudgetsFailure = function () {
 
 const showBudgetSuccess = function (data) {
   console.log(data.budget.start_date)
-
   // Takes string date and split on dash to create array
   // Array values are strings, parseInt to make number
   // Use number - 1 to get correct month from monthNames array
@@ -101,6 +110,7 @@ const showBudgetSuccess = function (data) {
     remainder: data.budget.month_budget - totalSpent
   })
 
+  $('#show-budget-info').remove()
   $('.budget').remove()
   $('#budget-display').append(getBudgetInfo)
   // Show view with delete button
@@ -128,11 +138,13 @@ const showBudgetFailure = function () {
   $('form').trigger('reset')
 }
 
-const updateBudgetSuccess = function () {
+const updateBudgetSuccess = function (data) {
+  $('.modal').modal('hide')
   $('#status-message').text('Budget Updated')
   $('#status-message').css('background-color', '#d5fdd5')
   setTimeout(() => $('#status-message').html(''), 2000)
   $('form').trigger('reset')
+  // console.log(data)
 }
 const updateBudgetFailure = function (data) {
   $('#status-message').text('Failed to update budget')
@@ -146,6 +158,9 @@ const deleteBudgetSuccess = function (data) {
   $('#status-message').css('background-color', '#d5fdd5')
   setTimeout(() => $('#status-message').text(''), 3000)
   $('form').trigger('reset')
+
+  $('#show-budget-info').remove()
+  $('.body-content').append(budgetTemplate)
 }
 
 const deleteBudgetFailure = function (data) {

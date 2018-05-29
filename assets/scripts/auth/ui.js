@@ -90,6 +90,7 @@ const signOutSuccess = function (data) {
   $('.expense').remove()
   $('#show-budget-info').remove()
   $('#welcome').remove()
+  $('#budget-display').text('')
 
   $('#sign-in').removeClass('hidden')
   $('#sign-up').removeClass('hidden')

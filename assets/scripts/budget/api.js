@@ -28,7 +28,7 @@ const indexBudgets = function () {
 const showBudget = function (data) {
   // console.log(data)
   return $.ajax({
-    url: config.apiUrl + '/budgets/' + data,
+    url: config.apiUrl + '/budgets/' + data.budget.id,
     method: 'GET',
     headers: {
       Authorization: 'Token token=' + store.user.token
@@ -37,7 +37,7 @@ const showBudget = function (data) {
 }
 
 const updateBudget = function (data) {
-  console.log(data)
+  // console.log(data)
   return $.ajax({
     url: config.apiUrl + `/budgets/` + data.budget.id,
     method: 'PATCH',

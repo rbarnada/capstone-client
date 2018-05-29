@@ -1,5 +1,5 @@
 'use strict'
-
+// const budgetTemplate = require('../templates/index-budget-template.handlebars')
 const getFormFields = require('../../../lib/get-form-fields')
 const api = require('./api')
 const ui = require('./ui')
@@ -9,6 +9,7 @@ const onCreateBudget = function (event) {
   const data = getFormFields(event.target)
   api.createBudget(data)
     .then(ui.createBudgetSuccess)
+    .then(api.indexBudgets)
     .catch(ui.createBudgetFailure)
 }
 
@@ -24,9 +25,15 @@ const onShowBudget = function (event) {
   event.preventDefault()
   $('#budget-display').text('')
   const data = getFormFields(event.target)
-  api.showBudget(data.budget.id)
+  api.showBudget(data)
     .then(ui.showBudgetSuccess)
     // .catch(ui.showSurveyFailure)
+}
+
+const budgetRefresh = function (data) {
+  // $('#budget-display').text('')
+  api.showBudget(data)
+    .then(ui.showBudgetSuccess)
 }
 
 const onUpdateBudget = function (event) {
@@ -34,6 +41,7 @@ const onUpdateBudget = function (event) {
   const data = getFormFields(event.target)
   api.updateBudget(data)
     .then(ui.updateBudgetSuccess)
+    .then(() => budgetRefresh(data))
     .catch(ui.updateBudgetFailure)
 }
 
@@ -47,6 +55,7 @@ const onDeleteBudget = function (event) {
 
 const onBackBudgets = function (event) {
   event.preventDefault()
+  // $('.body-content').append(budgetTemplate)
   ui.returnToBudgets()
 }
 
@@ -54,7 +63,7 @@ const addHandlers = function () {
   $('.body-content').on('submit', '#create-budget', onCreateBudget)
   $('.body-content').on('submit', '#index-budgets', onIndexBudgets)
   $('.container').on('submit', '.show-budget', onShowBudget)
-  $('.body-content').on('submit', '#update-budget', onUpdateBudget)
+  $('.container').on('submit', '#update-budget', onUpdateBudget)
   $('.container').on('submit', '.delete-budget', onDeleteBudget)
   $('.container').on('click', '.backToBudgets', onBackBudgets)
 }
