@@ -70,7 +70,7 @@ const indexBudgetsFailure = function () {
 }
 
 const showBudgetSuccess = function (data) {
-  console.log(data.budget.start_date)
+  console.log(data.budget.expenses)
   // Takes string date and split on dash to create array
   // Array values are strings, parseInt to make number
   // Use number - 1 to get correct month from monthNames array
@@ -107,7 +107,8 @@ const showBudgetSuccess = function (data) {
     budget: data.budget,
     month: currentMonth,
     total: totalSpent,
-    remainder: data.budget.month_budget - totalSpent
+    remainder: data.budget.month_budget - totalSpent,
+    expense: data.budget.expenses
   })
 
   $('#show-budget-info').remove()

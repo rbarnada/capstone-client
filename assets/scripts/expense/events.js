@@ -46,7 +46,7 @@ const onDeleteExpense = function (event) {
 }
 
 const addHandlers = function () {
-  $('.body-content').on('submit', '#create-expense', onCreateExpense)
+  $('.container').on('submit', '#create-expense', onCreateExpense)
   $('.body-content').on('submit', '#index-expenses', onIndexExpenses)
   $('.body-content').on('submit', '#show-expense', onShowExpense)
   $('.body-content').on('submit', '#update-expense', onUpdateExpense)

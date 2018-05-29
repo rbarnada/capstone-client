@@ -4,6 +4,7 @@ const createExpenseSuccess = function (data) {
   $('#status-message').css('background-color', '#E0F0D9')
   setTimeout(() => $('#status-message').text(''), 3000)
   $('form').trigger('reset')
+  $('.modal').modal('hide')
 }
 
 const createExpenseFailure = function (data) {

@@ -10,8 +10,11 @@
   </form>
   <br>
 
-  <button type="button" id="update-budget-modal-button" class="btn btn-default" data-toggle="modal" data-target="#update-budget-modal">Update Budget</button>
+  <button type="button" id="update-budget-modal-button" class="btn-xs btn-default" data-toggle="modal" data-target="#update-budget-modal">Update Budget</button>
+  <br>
+  <button type="button" id="add-expense-modal-button" class="btn-xs btn-default" data-toggle="modal" data-target="#add-expense-modal">Add Expense</button>
 
+<!-- UPDATE BUDGET MODAL START -->
   <div class="modal" id="update-budget-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -21,7 +24,7 @@
         </div>
         <div class="modal-body">
           <form id='update-budget'>
-            <input type="number" name="budget[id]" value="{{budget.id}}" placeholder="budget id" hidden>
+            <input type="number" name="budget[id]" value="{{budget.id}}" hidden>
             <input type="number" step=".01" name="budget[income]" placeholder="monthly income" required>
             <input type="number" step=".01" name="budget[month_budget]" placeholder="budget" required>
             <select name="budget[start_date]" required>
@@ -45,6 +48,49 @@
       </div>
     </div>
   </div>
+<!-- UPDATE BUDGET MODAL END -->
+
+<!-- ADD EXPENSE MODAL START -->
+<div class="modal" id="add-expense-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Add Expense</h4>
+      </div>
+      <div class="modal-body">
+        <form id="create-expense">
+          <input type="number" name="expense[budget_id]" value="{{budget.id}}" hidden>
+          <input type="date" name="expense[date]" required>
+          <input type="number" step=".01" name="expense[cost]" placeholder="Cost of Expense" required>
+          <select name="expense[expense_category]" required>
+            <option value="" disabled selected hidden>Expense Type</option>
+            <option value="Rent">Rent</option>
+            <option value="Utilities">Utilities</option>
+            <option value="Groceries">Groceries</option>
+            <option value="Auto/Transportation">Auto/Transportation</option>
+            <option value="Shopping/Entertainment">Shopping/Entertainment</option>
+            <option value="Restaurant/Dining">Restaurant/Dining</option>
+            <option value="Medical">Medical</option>
+            <option value="Eduation">Education</option>
+          </select>
+          <input type="submit" class="btn-xs btn-default" value="Submit">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ADD EXPENSE MODAL END -->
+
+<hr>
+  <h4>Expenses</h4>
+    <div id="expense-view">
+      {{#each expense as |expense|}}
+        <p>Date: {{expense.date}}</p>
+        <p>Cost: {{expense.cost}}</p>
+        <p>Type: {{expense.expense_category}}</p>
+        <hr>
+      {{/each}}
   <br>
   <a class="backToBudgets" href="#">Back to Budgets</a>
 </div>
