@@ -29,7 +29,7 @@ const createBudgetSuccess = function (data) {
 
 const createBudgetFailure = function (data) {
   console.log('Failed to create budget')
-  $('#status-message').text('Could not create budget')
+  $('#status-message').text('Month already has budget')
   $('#status-message').css('background-color', '#F2DEDE')
   setTimeout(() => $('#status-message').text(''), 3000)
   $('form').trigger('reset')
@@ -105,12 +105,28 @@ const showBudgetSuccess = function (data) {
   const totalSpent = findTotal()
   console.log(totalSpent)
 
+  const findEndDate = function (month) {
+    const dateArr = month.split('-')
+    dateArr.pop()
+    const formattedDate = dateArr.join('-')
+    console.log(formattedDate)
+    const lastDay = moment(formattedDate, 'YYYY-MM').daysInMonth()
+    const newDateArr = month.split('-')
+    newDateArr[2] = lastDay
+    const endDate = newDateArr.join('-')
+    console.log(month)
+    console.log(endDate)
+    return endDate
+  }
+  // findEndDate(data.budget.start_date)
+
   const getBudgetInfo = budgetInfo({
     budget: data.budget,
     month: currentMonth,
     total: totalSpent,
     remainder: data.budget.month_budget - totalSpent,
-    expense: data.budget.expenses
+    expense: data.budget.expenses,
+    endDay: findEndDate(data.budget.start_date)
   })
 
   $('#show-budget-info').remove()
@@ -132,20 +148,6 @@ const showBudgetSuccess = function (data) {
   //   </div>
   // `)
   $('form').trigger('reset')
-
-  const findEndDate = function (month) {
-    const dateArr = month.split('-')
-    dateArr.pop()
-    const formattedDate = dateArr.join('-')
-    console.log(formattedDate)
-    const lastDay = moment(formattedDate, 'YYYY-MM').daysInMonth()
-    const newDateArr = month.split('-')
-    newDateArr[2] = lastDay
-    const endDate = newDateArr.join('-')
-    console.log(month)
-    console.log(endDate)
-  }
-  findEndDate(data.budget.start_date)
 
   // console.log(moment('2012-01', 'YYYY-MM').daysInMonth())
 }

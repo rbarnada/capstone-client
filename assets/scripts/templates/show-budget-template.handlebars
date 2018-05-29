@@ -27,7 +27,7 @@
             <input type="number" name="budget[id]" value="{{budget.id}}" hidden>
             <input type="number" step=".01" name="budget[income]" placeholder="monthly income" required>
             <input type="number" step=".01" name="budget[month_budget]" placeholder="budget" required>
-            <select name="budget[start_date]" required>
+            <select name="budget[start_date]" placeholder="YYYY-MM-DD" required>
               <option value="" disabled selected hidden>Month</option>
               <option value="2018-01-01">January</option>
               <option value="2018-02-01">February</option>
@@ -61,7 +61,7 @@
       <div class="modal-body">
         <form id="create-expense">
           <input type="number" name="expense[budget_id]" value="{{budget.id}}" hidden>
-          <input type="date" name="expense[date]" required>
+          <input type="date" name="expense[date]" min={{budget.start_date}} max={{endDay}} required>
           <input type="number" step=".01" name="expense[cost]" placeholder="Cost of Expense" required>
           <select name="expense[expense_category]" required>
             <option value="" disabled selected hidden>Expense Type</option>
