@@ -132,6 +132,22 @@ const showBudgetSuccess = function (data) {
   //   </div>
   // `)
   $('form').trigger('reset')
+
+  const findEndDate = function (month) {
+    const dateArr = month.split('-')
+    dateArr.pop()
+    const formattedDate = dateArr.join('-')
+    console.log(formattedDate)
+    const lastDay = moment(formattedDate, 'YYYY-MM').daysInMonth()
+    const newDateArr = month.split('-')
+    newDateArr[2] = lastDay
+    const endDate = newDateArr.join('-')
+    console.log(month)
+    console.log(endDate)
+  }
+  findEndDate(data.budget.start_date)
+
+  // console.log(moment('2012-01', 'YYYY-MM').daysInMonth())
 }
 
 const showBudgetFailure = function () {
