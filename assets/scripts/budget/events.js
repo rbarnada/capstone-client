@@ -10,7 +10,7 @@ const onCreateBudget = function (event) {
   // console.log('data in create is ', data)
   api.createBudget(data)
     .then(ui.createBudgetSuccess)
-    // .then(api.indexBudgets)
+    .then(refresh)
     .catch(ui.createBudgetFailure)
 }
 
@@ -31,7 +31,10 @@ const onIndexBudgets = function (event) {
     .then(ui.indexBudgetsSuccess)
     .catch(ui.indexBudgetsFailure)
 }
-
+const refresh = function (event) {
+  api.indexBudgets()
+    .then(ui.indexBudgetsSuccess)
+}
 const onShowBudget = function (event) {
   event.preventDefault()
   $('#budget-display').text('')
@@ -61,14 +64,16 @@ const onDeleteBudget = function (event) {
   const data = getFormFields(event.target)
   api.deleteBudget(data)
     .then(ui.deleteBudgetSuccess)
+    .then(refresh)
     .catch(ui.deleteBudgetFailure)
 }
 
-const onBackBudgets = function (event) {
-  event.preventDefault()
-  // $('.body-content').append(budgetTemplate)
-  ui.returnToBudgets()
-}
+// const onBackBudgets = function (event) {
+//   event.preventDefault()
+//   api.indexBudgets()
+//     .then(ui.indexBudgetsSuccess)
+//     .then(ui.returnToBudgets)
+// }
 
 const addHandlers = function () {
   $('.body-content').on('submit', '#create-budget', onCreateBudget)
@@ -77,7 +82,7 @@ const addHandlers = function () {
   $('.container').on('submit', '.show-budget', onShowBudget)
   $('.container').on('submit', '#update-budget', onUpdateBudget)
   $('.container').on('submit', '.delete-budget', onDeleteBudget)
-  $('.container').on('click', '.backToBudgets', onBackBudgets)
+  $('.container').on('click', '.backToBudgets', onIndexBudgets)
 }
 
 module.exports = {

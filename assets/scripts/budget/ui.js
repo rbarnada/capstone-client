@@ -18,13 +18,15 @@ const createBudgetSuccess = function (data) {
 
   console.log(data)
   // after creation of first budget, switch to budget manager view
-  if (data.budget.length === 0) {
-    $('.body-content').append(newUserBudget)
-  } else {
-    $('#welcome').remove()
-    $('.budget').remove()
-    $('.body-content').append(budgetTemplate)
-  }
+  // if (data.budget.length === 0) {
+  //   $('.body-content').append(newUserBudget)
+  // } else {
+  //   // $('#welcome').remove()
+  //   // $('.budget').remove()
+  //   // $('.body-content').append(budgetTemplate)
+  // }
+
+  return data
 }
 
 // const createFirstBudgetSuccess = function (data) {
@@ -49,7 +51,10 @@ const indexBudgetsSuccess = function (data) {
   //     <p> You have no budgets. Try creating one</p>
   //     `)
   // }
-
+  $('#budget-display').text('')
+  $('.budget').remove()
+  $('#show-budget-info').remove()
+  $('.body-content').append(budgetTemplate)
   data.budgets.forEach(function (budget) {
     // console.log('month is ', moment(budget.start_date).format('MMMM'))
     // Index display data
@@ -68,13 +73,6 @@ const indexBudgetsSuccess = function (data) {
     `)
   })
 
-  // const today = new Date()
-  // let mm = today.getMonth() + 1
-  //
-  // if (mm < 10) {
-  //   mm = '0' + mm
-  // }
-  //
   // let nextMonth = mm
   // const prependZero = function (month) {
   //   if (nextMonth < 10) {
@@ -91,28 +89,37 @@ const indexBudgetsSuccess = function (data) {
   //   console.log(nextMonth)
   //   return nextMonth
   // }
-  //
-  // const findMonth = function (date) {
-  //   const dateSplit = date.split('-')
-  //   return dateSplit[1]
-  // }
-  //
-  // data.budgets.forEach(function (budget) {
-  //   console.log(budget.start_date)
-  //   console.log(mm)
-  //   if (findMonth(budget.start_date) === mm) {
-  //     console.log(budget.start_date)
-  //     console.log('Dates are equal')
-  //     if (findMonth(budget.start_date) === addMonth(nextMonth)) {
-  //       console.log('Both Exist')
-  //     } else {
-  //       $('#status-message').append(`
-  //         <p>You don't have a budget set for next month. Would you like to create one?</p>
-  //         `)
-  //     }
-  //   }
-  // })
   // $('form').trigger('reset')
+
+  const today = new Date()
+  let mm = today.getMonth() + 1
+
+  if (mm < 10) {
+    mm = '0' + mm
+  }
+
+  const findMonth = function (date) {
+    const dateSplit = date.split('-')
+    return dateSplit[1]
+  }
+
+  for (let i = 0; i < data.budgets.length; i++) {
+    // console.log(data.budgets[i].start_date)
+    if (findMonth(data.budgets[i].start_date) === mm) {
+      console.log(data.budgets[i].start_date)
+      console.log('Dates are equal')
+      if (i === data.budgets.length - 1) {
+        console.log('last item, prompt add item')
+        $('#create-prompt').append(`
+          <p>Notice: You do not have a budget set up for next month. Click <a class="add-form" href="#">here</a> to add one</p>
+          `)
+        return
+      }
+    } else {
+      console.log('other item exists, no prompt')
+    }
+  }
+  return data
 }
 
 const indexBudgetsFailure = function () {
@@ -232,8 +239,9 @@ const deleteBudgetSuccess = function (data) {
   setTimeout(() => $('#status-message').text(''), 3000)
   $('form').trigger('reset')
 
-  $('#show-budget-info').remove()
-  $('.body-content').append(budgetTemplate)
+  // $('#show-budget-info').remove()
+  // $('.body-content').append(budgetTemplate)
+  return data
 }
 
 const deleteBudgetFailure = function (data) {

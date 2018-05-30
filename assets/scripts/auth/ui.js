@@ -6,7 +6,6 @@ const createBudgetTemplate = require('../templates/create-new-budget.handlebars'
 const moment = require('moment')
 moment().format()
 
-// const expenseTemplate = require('../templates/expense-template.handlebars')
 
 const signUpSuccess = function (data) {
   // console.log('successful signup')
@@ -36,8 +35,6 @@ const signInSuccess = function (data) {
   setTimeout(() => $('#status-message').text(''), 3000)
 
   console.log(data.user.budgets)
-
-  // $('.body-content').append(expenseTemplate)
 
   store.user = data.user
   $('#start').modal('hide')
@@ -156,11 +153,7 @@ const signInIndex = function (data) {
       }
     } else {
       console.log('other item exists, no prompt')
-      //  $('#status-message').append(`
-      //    <p>You don't have a budget set for next month. Would you like to create one?</p>
-      // `)
     }
-  // $('form').trigger('reset')
   }
 }
 const addForm = function () {
