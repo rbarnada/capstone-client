@@ -36,7 +36,7 @@ const createBudgetFailure = function (data) {
 }
 
 const indexBudgetsSuccess = function (data) {
-  console.log(data.budgets)
+  // console.log(data.budgets)
 
   if (data.budgets.length === 0) {
     $('#budget-display').append(`
@@ -45,14 +45,14 @@ const indexBudgetsSuccess = function (data) {
   }
 
   data.budgets.forEach(function (budget) {
+    // console.log('month is ', moment(budget.start_date).format('MMMM'))
     // Index display data
     // consider moving to handlebars
     $('#budget-display').append(`
       <div>
-        <p>ID: ${budget.id}</p>
+        <p>Month: ${moment(budget.start_date).format('MMMM YYYY')}</p>
         <p>Income: ${budget.income}</p>
         <p>Budget: ${budget.month_budget}</p>
-        <p>Start Date: ${budget.start_date}</p>
         <form data-id="${budget.id}" class="show-budget">
           <input type="number" value="${budget.id}" name="budget[id]" hidden>
           <input type="submit" class="btn-default btn-xs" value="Details">
@@ -61,6 +61,51 @@ const indexBudgetsSuccess = function (data) {
       <hr>
     `)
   })
+
+  // const today = new Date()
+  // let mm = today.getMonth() + 1
+  //
+  // if (mm < 10) {
+  //   mm = '0' + mm
+  // }
+  //
+  // let nextMonth = mm
+  // const prependZero = function (month) {
+  //   if (nextMonth < 10) {
+  //     nextMonth = '0' + nextMonth
+  //   }
+  // }
+  //
+  // const addMonth = function (month) {
+  //   nextMonth = month
+  //   console.log(nextMonth)
+  //   nextMonth = parseInt(nextMonth)
+  //   nextMonth = nextMonth + 1
+  //   prependZero(nextMonth)
+  //   console.log(nextMonth)
+  //   return nextMonth
+  // }
+  //
+  // const findMonth = function (date) {
+  //   const dateSplit = date.split('-')
+  //   return dateSplit[1]
+  // }
+  //
+  // data.budgets.forEach(function (budget) {
+  //   console.log(budget.start_date)
+  //   console.log(mm)
+  //   if (findMonth(budget.start_date) === mm) {
+  //     console.log(budget.start_date)
+  //     console.log('Dates are equal')
+  //     if (findMonth(budget.start_date) === addMonth(nextMonth)) {
+  //       console.log('Both Exist')
+  //     } else {
+  //       $('#status-message').append(`
+  //         <p>You don't have a budget set for next month. Would you like to create one?</p>
+  //         `)
+  //     }
+  //   }
+  // })
   // $('form').trigger('reset')
 }
 

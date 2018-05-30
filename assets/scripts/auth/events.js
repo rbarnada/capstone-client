@@ -1,6 +1,7 @@
 const getFormFields = require('../../../lib/get-form-fields')
 const api = require('./api')
 const ui = require('./ui')
+const budgetApi = require('../budget/api')
 
 const onSignUp = function (event) {
   // console.log('sign up working')
@@ -24,6 +25,8 @@ const onSignIn = function (event) {
   const data = getFormFields(event.target)
   api.signIn(data)
     .then(ui.signInSuccess)
+    .then(budgetApi.indexBudgets)
+    .then(ui.signInIndex)
     .catch(ui.signInFailure)
 }
 
@@ -45,15 +48,20 @@ const onSignOut = function (event) {
     .catch(ui.signOutFailure)
 }
 
+const onAddForm = function (event) {
+  ui.addForm()
+}
+
 const addHandlers = function () {
   $('#sign-up').on('submit', onSignUp)
   $('#sign-in').on('submit', onSignIn)
   $('#change-password').on('submit', onChangePass)
   $('#sign-out').on('submit', onSignOut)
+  $('.container').on('click', '.add-form', onAddForm)
 }
 
 $('.modal').on('hidden.bs.modal', function (e) {
-  $('input[type="email"], input[type="password"], input[type="text"], input[type="date"], input[type="number"], textarea').val('')
+  $('input[type="email"], input[type="password"], textarea').val('')
 })
 
 module.exports = {
