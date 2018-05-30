@@ -27,6 +27,12 @@ const createBudgetSuccess = function (data) {
   }
 }
 
+// const createFirstBudgetSuccess = function (data) {
+//   console.log('data in first success is ', data)
+//   $('#welcome').remove()
+//   $('.body-content').append(budgetInfo)
+// }
+
 const createBudgetFailure = function (data) {
   console.log('Failed to create budget')
   $('#status-message').text('Month already has budget')
@@ -38,11 +44,11 @@ const createBudgetFailure = function (data) {
 const indexBudgetsSuccess = function (data) {
   // console.log(data.budgets)
 
-  if (data.budgets.length === 0) {
-    $('#budget-display').append(`
-      <p> You have no budgets. Try creating one</p>
-      `)
-  }
+  // if (data.budgets.length === 0) {
+  //   $('#budget-display').append(`
+  //     <p> You have no budgets. Try creating one</p>
+  //     `)
+  // }
 
   data.budgets.forEach(function (budget) {
     // console.log('month is ', moment(budget.start_date).format('MMMM'))
@@ -118,6 +124,7 @@ const indexBudgetsFailure = function () {
 
 const showBudgetSuccess = function (data) {
   console.log(data.budget.expenses)
+  $('#welcome').remove()
   // Takes string date and split on dash to create array
   // Array values are strings, parseInt to make number
   // Use number - 1 to get correct month from monthNames array
@@ -252,4 +259,5 @@ module.exports = {
   deleteBudgetSuccess,
   deleteBudgetFailure,
   returnToBudgets
+  // createFirstBudgetSuccess
 }

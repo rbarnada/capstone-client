@@ -82,11 +82,11 @@ const signInSuccess = function (data) {
 
 // THIS IS REPEATED IN BUDGET UI. FIND PROPER PLACE FOR IT
 const signInIndex = function (data) {
-  if (data.budgets.length === 0) {
-    $('#budget-display').append(`
-      <p> You have no budgets. Try creating one</p>
-      `)
-  }
+  // if (data.budgets.length === 0) {
+  //   $('#budget-display').append(`
+  //     <p> You have no budgets. Try creating one</p>
+  //     `)
+  // }
 
   data.budgets.forEach(function (budget) {
     // console.log('month is ', moment(budget.start_date).format('MMMM'))

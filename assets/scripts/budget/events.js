@@ -10,8 +10,18 @@ const onCreateBudget = function (event) {
   // console.log('data in create is ', data)
   api.createBudget(data)
     .then(ui.createBudgetSuccess)
-    .then(api.indexBudgets)
+    // .then(api.indexBudgets)
     .catch(ui.createBudgetFailure)
+}
+
+const onCreateFirstBudget = function (event) {
+  event.preventDefault()
+  const data = getFormFields(event.target)
+  api.createBudget(data)
+    .then(data => api.showBudget(data))
+    // .then((data) => console.log(data))
+    .then(ui.showBudgetSuccess)
+    // .then(ui.createFirstBudgetSuccess)
 }
 
 const onIndexBudgets = function (event) {
@@ -62,6 +72,7 @@ const onBackBudgets = function (event) {
 
 const addHandlers = function () {
   $('.body-content').on('submit', '#create-budget', onCreateBudget)
+  $('.body-content').on('submit', '#create-first-budget', onCreateFirstBudget)
   $('.body-content').on('submit', '#index-budgets', onIndexBudgets)
   $('.container').on('submit', '.show-budget', onShowBudget)
   $('.container').on('submit', '#update-budget', onUpdateBudget)
