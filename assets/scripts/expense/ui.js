@@ -1,10 +1,12 @@
 const createExpenseSuccess = function (data) {
-  console.log(data)
+  // console.log(data)
+  $('#add-expense-modal').modal('hide')
+  $('body').removeClass('modal-open')
+  $('.modal-backdrop').remove()
   $('#status-message').text('Expense added')
   $('#status-message').css('background-color', '#E0F0D9')
   setTimeout(() => $('#status-message').text(''), 3000)
   $('form').trigger('reset')
-  $('.modal').modal('hide')
 }
 
 const createExpenseFailure = function (data) {
@@ -18,12 +20,14 @@ const createExpenseFailure = function (data) {
 const indexExpensesSuccess = function (data) {
   console.log(data.expenses)
   data.expenses.forEach(function (expense) {
-    $('#expense-display').append(`
+    // if (data.expense.b)
+    $('#expense-view').append(`
       <div>
         <p>ID: ${expense.id}</p>
         <p>Date: ${expense.date}</p>
         <p>Cost: $${expense.cost}</p>
         <p>Type: ${expense.expense_category}</p>
+        <hr>
       </div>
       <hr>
     `)

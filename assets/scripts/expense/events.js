@@ -3,11 +3,18 @@
 const getFormFields = require('../../../lib/get-form-fields')
 const api = require('./api')
 const ui = require('./ui')
+const budgetApi = require('../budget/api')
+const budgetUi = require('../budget/ui')
 
 const onCreateExpense = function (event) {
   event.preventDefault()
   const data = getFormFields(event.target)
   api.createExpense(data)
+    // .then(api.indexExpenses)
+    // .then(data => ui.indexExpensesSuccess)
+    // .then(data => console.log(data))
+    .then((data) => budgetApi.showBudget(data.expense))
+    .then((data) => budgetUi.showBudgetSuccess(data))
     .then(ui.createExpenseSuccess)
     .catch(ui.createExpenseFailure)
 }
@@ -47,8 +54,8 @@ const onDeleteExpense = function (event) {
 
 const addHandlers = function () {
   $('.container').on('submit', '#create-expense', onCreateExpense)
-  $('.body-content').on('submit', '#index-expenses', onIndexExpenses)
-  $('.body-content').on('submit', '#show-expense', onShowExpense)
+  $('.container').on('submit', '#index-expenses', onIndexExpenses)
+  $('.container').on('submit', '#show-expense', onShowExpense)
   $('.body-content').on('submit', '#update-expense', onUpdateExpense)
   $('.body-content').on('submit', '#delete-expense', onDeleteExpense)
 }
