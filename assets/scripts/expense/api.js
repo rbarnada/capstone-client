@@ -39,7 +39,7 @@ const showExpense = function (data) {
 const updateExpense = function (data) {
   console.log(data)
   return $.ajax({
-    url: config.apiUrl + `/expenses/` + data.expense.id,
+    url: config.apiUrl + `/expenses/` + store.expenseId,
     method: 'PATCH',
     headers: {
       Authorization: 'Token token=' + store.user.token

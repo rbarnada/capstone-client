@@ -39,8 +39,11 @@ const onShowExpense = function (event) {
 
 const onUpdateExpense = function (event) {
   event.preventDefault()
+
   const data = getFormFields(event.target)
   api.updateExpense(data)
+    .then((data) => budgetApi.showBudget(data.expense))
+    .then((data) => budgetUi.showBudgetSuccess(data))
     .then(ui.updateExpenseSuccess)
     .catch(ui.updateExpenseFailure)
 }
@@ -59,12 +62,19 @@ const onDeleteExpense = function (event) {
     .catch(ui.deleteExpenseFailure)
 }
 
+const onUpdateButtonPress = function (event) {
+  event.preventDefault()
+  store.expenseId = $(event.target).data().id
+  console.log(store.updateId)
+}
+
 const addHandlers = function () {
   $('.container').on('submit', '#create-expense', onCreateExpense)
   $('.container').on('submit', '#index-expenses', onIndexExpenses)
   $('.container').on('submit', '#show-expense', onShowExpense)
-  $('.body-content').on('submit', '#update-expense', onUpdateExpense)
+  $('.container').on('submit', '#update-expense', onUpdateExpense)
   $('.container').on('submit', '.delete-expense', onDeleteExpense)
+  $('.container').on('click', '.update-expense-modal-button', onUpdateButtonPress)
 }
 
 module.exports = {

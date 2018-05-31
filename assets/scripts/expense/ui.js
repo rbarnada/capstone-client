@@ -65,10 +65,13 @@ const showExpenseFailure = function () {
 }
 
 const updateExpenseSuccess = function () {
+  $('#update-expense-modal').modal('hide')
   $('#status-message').text('Expense Updated')
   $('#status-message').css('background-color', '#d5fdd5')
   setTimeout(() => $('#status-message').html(''), 2000)
   $('form').trigger('reset')
+  $('body').removeClass('modal-open')
+  $('.modal-backdrop').remove()
 }
 const updateExpenseFailure = function (data) {
   $('#status-message').text('Failed to update expense')
