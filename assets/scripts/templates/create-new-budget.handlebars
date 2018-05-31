@@ -1,8 +1,8 @@
 <div id="new-budget-template">
   <form id='create-budget'>
     <legend>Create Month Budget</legend>
-    <input type="number" step=".01" name="budget[income]" placeholder="monthly income" required>
-    <input type="number" step=".01" name="budget[month_budget]" placeholder="budget" required>
+    <input type="number" step=".01" name="budget[income]" min="0" placeholder="monthly income" required>
+    <input type="number" step=".01" name="budget[month_budget]" min="0" placeholder="budget" required>
     <input type="text" value="{{startDate}}" name="budget[start_date]" hidden required>
     <input type="submit" class="btn-xs btn-default" value="Submit">
   </form>

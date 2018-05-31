@@ -3,7 +3,7 @@
     <legend>Create Expense</legend>
     <input type="number" name="expense[budget_id]" placeholder="Budget ID" required>
     <input type="date" name="expense[date]" required>
-    <input type="number" step=".01" name="expense[cost]" placeholder="Cost of Expense" required>
+    <input type="number" step=".01" name="expense[cost]" min="0" placeholder="Cost of Expense" required>
     <select name="expense[expense_category]" required>
       <option value="" disabled selected hidden>Expense Type</option>
       <option value="Rent">Rent</option>

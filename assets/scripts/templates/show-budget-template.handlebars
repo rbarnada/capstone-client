@@ -25,8 +25,8 @@
         <div class="modal-body">
           <form id='update-budget'>
             <input type="number" name="budget[id]" value="{{budget.id}}" hidden>
-            <input type="number" step=".01" name="budget[income]" placeholder="monthly income" required>
-            <input type="number" step=".01" name="budget[month_budget]" placeholder="budget" required>
+            <input type="number" step=".01" name="budget[income]" min="0" placeholder="monthly income" required>
+            <input type="number" step=".01" name="budget[month_budget]" min="0" placeholder="budget" required>
             <input type="text" value="{{budget.start_date}}" name="budget[start_date]" hidden required>
             <input type="submit" class="btn-xs btn-default" value="Submit">
           </form>
@@ -48,7 +48,7 @@
         <form id="create-expense">
           <input type="number" name="expense[budget_id]" value="{{budget.id}}" hidden>
           <input type="date" name="expense[date]" min={{budget.start_date}} max={{endDay}} required>
-          <input type="number" step=".01" name="expense[cost]" placeholder="Cost of Expense" required>
+          <input type="number" step=".01" name="expense[cost]" min="0" placeholder="Cost of Expense" required>
           <select name="expense[expense_category]" required>
             <option value="" disabled selected hidden>Expense Type</option>
             <option value="Rent">Rent</option>
@@ -80,7 +80,7 @@
         <form id="update-expense">
           <!-- <input type="number" name="expense[id]" value="{{expense.id}}"> -->
           <input type="date" name="expense[date]" min={{budget.start_date}} max={{endDay}} required>
-          <input type="number" step=".01" name="expense[cost]" placeholder="Cost of Expense" required>
+          <input type="number" step=".01" name="expense[cost]" min="0" placeholder="Cost of Expense" required>
           <select name="expense[expense_category]" required>
             <option value="" disabled selected hidden>Expense Type</option>
             <option value="Rent">Rent</option>
