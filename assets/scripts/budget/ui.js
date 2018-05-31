@@ -225,6 +225,8 @@ const updateBudgetSuccess = function (data) {
   $('#status-message').css('background-color', '#d5fdd5')
   setTimeout(() => $('#status-message').html(''), 2000)
   $('form').trigger('reset')
+  $('body').removeClass('modal-open')
+  $('.modal-backdrop').remove()
   // console.log(data)
 }
 const updateBudgetFailure = function (data) {

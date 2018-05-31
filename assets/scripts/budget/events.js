@@ -64,10 +64,12 @@ const onUpdateBudget = function (event) {
 const onDeleteBudget = function (event) {
   event.preventDefault()
   const data = getFormFields(event.target)
-  api.deleteBudget(data)
-    .then(ui.deleteBudgetSuccess)
-    .then(refresh)
-    .catch(ui.deleteBudgetFailure)
+  if (confirm('Deleting budget will delete all expense. Continue?')) {
+    api.deleteBudget(data)
+      .then(ui.deleteBudgetSuccess)
+      .then(refresh)
+      .catch(ui.deleteBudgetFailure)
+  }
 }
 
 // const onBackBudgets = function (event) {
