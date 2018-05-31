@@ -146,7 +146,7 @@ const signInIndex = function (data) {
       if (i === data.budgets.length - 1) {
         console.log('last item, prompt add item')
         $('#create-prompt').append(`
-          <p>Notice: You do not have a budget set up for next month. Click <a class="add-form" href="#">here</a> to add one</p>
+          <p class='add-form-message'>Notice: You do not have a budget set up for next month. Click <a class="add-form" href="#">here</a> to add one</p>
           `)
         return
       }
@@ -168,7 +168,7 @@ const addForm = function () {
   const getCreateNewBudget = createBudgetTemplate({
     startDate: nextMonth
   })
-
+  $('.add-form-message').remove()
   $('#create-prompt').append(getCreateNewBudget)
 }
 

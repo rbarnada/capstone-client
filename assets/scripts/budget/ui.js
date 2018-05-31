@@ -45,15 +45,17 @@ const createBudgetFailure = function (data) {
 const indexBudgetsSuccess = function (data) {
   // console.log(data.budgets)
 
-  // if (data.budgets.length === 0) {
-  //   $('#budget-display').append(`
-  //     <p> You have no budgets. Try creating one</p>
-  //     `)
-  // }
   $('#budget-display').text('')
   $('.budget').remove()
   $('#show-budget-info').remove()
   $('.body-content').append(budgetTemplate)
+
+  if (data.budgets.length === 0) {
+    $('#create-prompt').append(`
+<p class='add-form-message'>Notice: You have deleted your only budget. Click <a class="add-form" href="#">here</a> to add one</p>
+      `)
+  }
+
   data.budgets.forEach(function (budget) {
     // console.log('month is ', moment(budget.start_date).format('MMMM'))
     // Index display data
