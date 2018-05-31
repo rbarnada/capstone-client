@@ -59,7 +59,7 @@ const updateBudget = function (data) {
 }
 
 const deleteBudget = function (data) {
-  console.log(data)
+  // console.log(data)
   return $.ajax({
     url: config.apiUrl + `/budgets/` + data.budget.id,
     method: 'DELETE',

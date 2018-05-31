@@ -37,7 +37,7 @@ const showExpense = function (data) {
 }
 
 const updateExpense = function (data) {
-  console.log(data)
+  // console.log(data)
   return $.ajax({
     url: config.apiUrl + `/expenses/` + store.expenseId,
     method: 'PATCH',
@@ -49,7 +49,7 @@ const updateExpense = function (data) {
 }
 
 const deleteExpense = function (data) {
-  console.log(data)
+  // console.log(data)
   return $.ajax({
     url: config.apiUrl + `/expenses/` + data.expense.id,
     method: 'DELETE',

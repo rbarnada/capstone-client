@@ -19,7 +19,7 @@ const onCreateFirstBudget = function (event) {
   const data = getFormFields(event.target)
   api.createBudget(data)
     .then(data => api.showBudget(data))
-    // .then((data) => console.log(data))
+    // .then((data) => // console.log(data))
     .then(ui.showBudgetSuccess)
     // .then(ui.createFirstBudgetSuccess)
 }

@@ -18,7 +18,7 @@ const createExpenseFailure = function (data) {
 }
 
 const indexExpensesSuccess = function (data) {
-  console.log(data.expenses)
+  // console.log(data.expenses)
   data.expenses.forEach(function (expense) {
     // if (data.expense.b)
     // $('#expense-view').append(`

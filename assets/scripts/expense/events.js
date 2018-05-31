@@ -13,7 +13,7 @@ const onCreateExpense = function (event) {
   api.createExpense(data)
     // .then(api.indexExpenses)
     // .then(data => ui.indexExpensesSuccess)
-    // .then(data => console.log(data))
+    // .then(data => // console.log(data))
     .then((data) => budgetApi.showBudget(data.expense))
     .then((data) => budgetUi.showBudgetSuccess(data))
     .then(ui.createExpenseSuccess)
@@ -53,11 +53,11 @@ const onDeleteExpense = function (event) {
   const data = getFormFields(event.target)
   // console.log(data)
   store.budgetId = $(event.target).parent().data().id
-  console.log(store.budgetId)
+  // console.log(store.budgetId)
   api.deleteExpense(data)
     .then(ui.deleteExpenseSuccess)
     .then(budgetApi.showAfterDelete)
-    // .then(data => console.log(data))
+    // .then(data => // console.log(data))
     .then(budgetUi.showBudgetSuccess)
     .catch(ui.deleteExpenseFailure)
 }
@@ -65,7 +65,7 @@ const onDeleteExpense = function (event) {
 const onUpdateButtonPress = function (event) {
   event.preventDefault()
   store.expenseId = $(event.target).data().id
-  console.log(store.updateId)
+  // console.log(store.updateId)
 }
 
 const addHandlers = function () {
