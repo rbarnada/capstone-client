@@ -72,12 +72,9 @@ const onDeleteBudget = function (event) {
   }
 }
 
-// const onBackBudgets = function (event) {
-//   event.preventDefault()
-//   api.indexBudgets()
-//     .then(ui.indexBudgetsSuccess)
-//     .then(ui.returnToBudgets)
-// }
+const onAddFirstForm = function (event) {
+  ui.addFirstForm()
+}
 
 const addHandlers = function () {
   $('.body-content').on('submit', '#create-budget', onCreateBudget)
@@ -87,6 +84,7 @@ const addHandlers = function () {
   $('.container').on('submit', '#update-budget', onUpdateBudget)
   $('.container').on('submit', '.delete-budget', onDeleteBudget)
   $('.container').on('click', '.backToBudgets', onIndexBudgets)
+  $('.container').on('click', '.add-first-form', onAddFirstForm)
 }
 
 module.exports = {

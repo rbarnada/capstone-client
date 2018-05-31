@@ -1,9 +1,9 @@
 <div id="show-budget-info">
   <h3>{{month}} Budget</h3>
-  <p>Income: {{budget.income}}</p>
-  <p>Budget: {{budget.month_budget}}</p>
-  <p>Total Spent: {{total}}</p>
-  <p>Total Remaining: {{remainder}}</p>
+  <p>Income: ${{budget.income}}</p>
+  <p>Budget: ${{budget.month_budget}}</p>
+  <p>Total Spent: ${{total}}</p>
+  <p>Total Remaining: ${{remainder}}</p>
   <form data-id="{{budget.id}}" class="delete-budget">
     <input type="number" value="{{budget.id}}" name="budget[id]" hidden>
     <input type="submit" class="btn-default btn-xs" value="Delete Budget">
@@ -109,7 +109,7 @@
     <div id="expense-view" data-id="{{budget.id}}">
       {{#each expense as |expense|}}
         <p>Date: {{expense.date}}</p>
-        <p>Cost: {{expense.cost}}</p>
+        <p>Cost: ${{expense.cost}}</p>
         <p>Type: {{expense.expense_category}}</p>
         <button type="button" id="update-expense-modal-button" class="btn-xs btn-default update-expense-modal-button" data-id="{{expense.id}}" data-toggle="modal" data-target="#update-expense-modal">Update</button>
         <form class="delete-expense">

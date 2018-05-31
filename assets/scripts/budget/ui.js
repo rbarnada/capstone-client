@@ -1,5 +1,6 @@
 const budgetInfo = require('../templates/show-budget-template.handlebars')
 const budgetTemplate = require('../templates/index-budget-template.handlebars')
+const createBudgetTemplate = require('../templates/create-new-budget.handlebars')
 const moment = require('moment')
 moment().format()
 
@@ -43,28 +44,81 @@ const createBudgetFailure = function (data) {
 }
 
 const indexBudgetsSuccess = function (data) {
-  // console.log(data.budgets)
+  console.log(data.budgets)
 
   $('#budget-display').text('')
   $('.budget').remove()
   $('#show-budget-info').remove()
   $('.body-content').append(budgetTemplate)
 
+  const sorted = data.budgets.sort(function compare (a, b) {
+    const dateA = new Date(a.start_date)
+    const dateB = new Date(b.start_date)
+    return dateA - dateB
+  })
+  console.log(sorted)
+
   if (data.budgets.length === 0) {
     $('#create-prompt').append(`
-<p class='add-form-message'>Notice: You have deleted your only budget. Click <a class="add-form" href="#">here</a> to add one</p>
+<p class='add-form-message'>Notice: You have deleted your only budget. Click <a class="add-first-form" href="#">here</a> to add one</p>
       `)
   }
 
-  data.budgets.forEach(function (budget) {
+  const today = new Date()
+  let mm = today.getMonth() + 1
+
+  if (mm < 10) {
+    mm = '0' + mm
+  }
+
+  const findMonth = function (date) {
+    const dateSplit = date.split('-')
+    return dateSplit[1]
+  }
+
+  const sortDates = function () {
+    for (let i = 0; i < sorted.length; i++) {
+      if (findMonth(sorted[i].start_date) === mm) {
+        console.log('true')
+        return
+      } else {
+        console.log('false')
+        return $('#create-prompt').append(`
+            <p class='add-form-message'>Notice: You have deleted this month's budget. Click <a class="add-first-form" href="#">here</a> to add one</p>
+            `)
+      }
+    }
+  }
+  sortDates()
+  console.log('sorted is ', sorted)
+  // sorted.some(function (budget) {
+  //   if (findMonth(budget.start_date) === mm) {
+  //     console.log('true')
+  //     return
+  //   } else {
+  //     console.log('false')
+  //     return $('#create-prompt').append(`
+  //   <p class='add-form-message'>Notice: You have deleted this month's budget. Click <a class="add-first-form" href="#">here</a> to add one</p>
+  //         `)
+  //   }
+  // })
+
+  console.log('start date is ', data.budgets[0].start_date)
+
+  // for (let i = 0; i < data.budgets.length; i++) {
+
+  // }
+
+  sorted.forEach(function (budget) {
     // console.log('month is ', moment(budget.start_date).format('MMMM'))
     // Index display data
     // consider moving to handlebars
+
     $('#budget-display').append(`
       <div>
         <p>Month: ${moment(budget.start_date).format('MMMM YYYY')}</p>
-        <p>Income: ${budget.income}</p>
-        <p>Budget: ${budget.month_budget}</p>
+        <p>Income: $${budget.income}</p>
+        <p>Budget: $${budget.month_budget}</p>
         <form data-id="${budget.id}" class="show-budget">
           <input type="number" value="${budget.id}" name="budget[id]" hidden>
           <input type="submit" class="btn-default btn-xs" value="Details">
@@ -91,18 +145,6 @@ const indexBudgetsSuccess = function (data) {
   //   return nextMonth
   // }
   // $('form').trigger('reset')
-
-  const today = new Date()
-  let mm = today.getMonth() + 1
-
-  if (mm < 10) {
-    mm = '0' + mm
-  }
-
-  const findMonth = function (date) {
-    const dateSplit = date.split('-')
-    return dateSplit[1]
-  }
 
   for (let i = 0; i < data.budgets.length; i++) {
     // console.log(data.budgets[i].start_date)
@@ -258,6 +300,25 @@ const returnToBudgets = function () {
   $('#show-budget-info').remove()
   $('.body-content').append(budgetTemplate)
 }
+
+const addFirstForm = function () {
+  const thisDay = new Date()
+  const dd = '01'
+  let mm = thisDay.getMonth() + 1
+  const yyyy = thisDay.getFullYear()
+  if (mm < 10) {
+    mm = '0' + mm
+  }
+  const nextMonth = yyyy + '-' + mm + '-' + dd
+
+  const getCreateNewBudget = createBudgetTemplate({
+    startDate: nextMonth
+  })
+
+  $('.add-form-message').remove()
+  $('#create-prompt').append(getCreateNewBudget)
+}
+
 module.exports = {
   createBudgetSuccess,
   createBudgetFailure,
@@ -269,6 +330,6 @@ module.exports = {
   updateBudgetFailure,
   deleteBudgetSuccess,
   deleteBudgetFailure,
-  returnToBudgets
-  // createFirstBudgetSuccess
+  returnToBudgets,
+  addFirstForm
 }

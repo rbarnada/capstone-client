@@ -83,16 +83,49 @@ const signInIndex = function (data) {
   //     <p> You have no budgets. Try creating one</p>
   //     `)
   // }
+  const sorted = data.budgets.sort(function compare (a, b) {
+    const dateA = new Date(a.start_date)
+    const dateB = new Date(b.start_date)
+    return dateA - dateB
+  })
+  console.log(sorted)
 
-  data.budgets.forEach(function (budget) {
+  const today = new Date()
+  let mm = today.getMonth() + 1
+
+  if (mm < 10) {
+    mm = '0' + mm
+  }
+
+  const findMonth = function (date) {
+    const dateSplit = date.split('-')
+    return dateSplit[1]
+  }
+
+  const sortDates = function () {
+    for (let i = 0; i < sorted.length; i++) {
+      if (findMonth(sorted[i].start_date) === mm) {
+        console.log('true')
+        return
+      } else {
+        console.log('false')
+        return $('#create-prompt').append(`
+            <p class='add-form-message'>Notice: You have deleted this month's budget. Click <a class="add-first-form" href="#">here</a> to add one</p>
+            `)
+      }
+    }
+  }
+  sortDates()
+
+  sorted.forEach(function (budget) {
     // console.log('month is ', moment(budget.start_date).format('MMMM'))
     // Index display data
     // consider moving to handlebars
     $('#budget-display').append(`
       <div>
         <p>Month: ${moment(budget.start_date).format('MMMM YYYY')}</p>
-        <p>Income: ${budget.income}</p>
-        <p>Budget: ${budget.month_budget}</p>
+        <p>Income: $${budget.income}</p>
+        <p>Budget: $${budget.month_budget}</p>
         <form data-id="${budget.id}" class="show-budget">
           <input type="number" value="${budget.id}" name="budget[id]" hidden>
           <input type="submit" class="btn-default btn-xs" value="Details">
@@ -102,39 +135,7 @@ const signInIndex = function (data) {
     `)
   })
 
-  const today = new Date()
-  let mm = today.getMonth() + 1
 
-  if (mm < 10) {
-    mm = '0' + mm
-  }
-
-  // let nextMonth
-  // const prependZero = function (month) {
-  //   if (nextMonth < 10) {
-  //     nextMonth = '0' + nextMonth
-  //     return nextMonth
-  //   }
-  // }
-
-  // const addMonth = function (month) {
-  //   nextMonth = month
-  //   console.log(nextMonth)
-  //   nextMonth = parseInt(nextMonth)
-  //   console.log(nextMonth)
-  //   nextMonth = nextMonth + 1
-  //   console.log(nextMonth)
-  //   nextMonth = prependZero(nextMonth)
-  //   console.log(nextMonth)
-  //   // return prependZero(nextMonth)
-  //   // console.log(nextMonth)
-  //   return nextMonth
-  // }
-
-  const findMonth = function (date) {
-    const dateSplit = date.split('-')
-    return dateSplit[1]
-  }
 
   // $('#create-prompt').append(getCreateNewBudget)
 
