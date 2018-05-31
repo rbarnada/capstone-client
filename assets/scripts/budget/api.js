@@ -36,6 +36,16 @@ const showBudget = function (data) {
   })
 }
 
+const showAfterDelete = function () {
+  return $.ajax({
+    url: config.apiUrl + '/budgets/' + store.budgetId,
+    method: 'GET',
+    headers: {
+      Authorization: 'Token token=' + store.user.token
+    }
+  })
+}
+
 const updateBudget = function (data) {
   // console.log(data)
   return $.ajax({
@@ -65,5 +75,6 @@ module.exports = {
   indexBudgets,
   showBudget,
   updateBudget,
-  deleteBudget
+  deleteBudget,
+  showAfterDelete
 }

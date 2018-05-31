@@ -5,6 +5,7 @@ const api = require('./api')
 const ui = require('./ui')
 const budgetApi = require('../budget/api')
 const budgetUi = require('../budget/ui')
+const store = require('../store')
 
 const onCreateExpense = function (event) {
   event.preventDefault()
@@ -47,8 +48,14 @@ const onUpdateExpense = function (event) {
 const onDeleteExpense = function (event) {
   event.preventDefault()
   const data = getFormFields(event.target)
+  // console.log(data)
+  store.budgetId = $(event.target).parent().data().id
+  console.log(store.budgetId)
   api.deleteExpense(data)
     .then(ui.deleteExpenseSuccess)
+    .then(budgetApi.showAfterDelete)
+    // .then(data => console.log(data))
+    .then(budgetUi.showBudgetSuccess)
     .catch(ui.deleteExpenseFailure)
 }
 
@@ -57,7 +64,7 @@ const addHandlers = function () {
   $('.container').on('submit', '#index-expenses', onIndexExpenses)
   $('.container').on('submit', '#show-expense', onShowExpense)
   $('.body-content').on('submit', '#update-expense', onUpdateExpense)
-  $('.body-content').on('submit', '#delete-expense', onDeleteExpense)
+  $('.container').on('submit', '.delete-expense', onDeleteExpense)
 }
 
 module.exports = {

@@ -6,7 +6,6 @@ const createBudgetTemplate = require('../templates/create-new-budget.handlebars'
 const moment = require('moment')
 moment().format()
 
-
 const signUpSuccess = function (data) {
   // console.log('successful signup')
   $('#up-message').text('Successfully signed up. Sign in to continue')

@@ -21,16 +21,20 @@ const indexExpensesSuccess = function (data) {
   console.log(data.expenses)
   data.expenses.forEach(function (expense) {
     // if (data.expense.b)
-    $('#expense-view').append(`
-      <div>
-        <p>ID: ${expense.id}</p>
-        <p>Date: ${expense.date}</p>
-        <p>Cost: $${expense.cost}</p>
-        <p>Type: ${expense.expense_category}</p>
-        <hr>
-      </div>
-      <hr>
-    `)
+    // $('#expense-view').append(`
+    //   <div id='expense-view'>
+    //     <p>ID: ${expense.id}</p>
+    //     <p>Date: ${expense.date}</p>
+    //     <p>Cost: $${expense.cost}</p>
+    //     <p>Type: ${expense.expense_category}</p>
+    //     <form class="delete-expense">
+    //       <input type="number" placeholder="Expense ID" value="{{expense.id}}" name="expense[id]" required>
+    //       <input type="submit" class="btn-xs btn-default" value="Delete">
+    //     </form>
+    //     <hr>
+    //   </div>
+    //   <hr>
+    // `)
   })
   // $('form').trigger('reset')
 }
@@ -78,6 +82,9 @@ const deleteExpenseSuccess = function (data) {
   $('#status-message').css('background-color', '#d5fdd5')
   setTimeout(() => $('#status-message').text(''), 3000)
   $('form').trigger('reset')
+  $('#expense-view').text('')
+  $('#index-button').click()
+  return data
 }
 
 const deleteExpenseFailure = function (data) {

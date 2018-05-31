@@ -31,10 +31,12 @@ const onIndexBudgets = function (event) {
     .then(ui.indexBudgetsSuccess)
     .catch(ui.indexBudgetsFailure)
 }
+
 const refresh = function (event) {
   api.indexBudgets()
     .then(ui.indexBudgetsSuccess)
 }
+
 const onShowBudget = function (event) {
   event.preventDefault()
   $('#budget-display').text('')

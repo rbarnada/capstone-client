@@ -1,4 +1,5 @@
 <div id="show-budget-info">
+  {{log budget.id}}
   <h3>{{month}} Budget</h3>
   <p>Income: {{budget.income}}</p>
   <p>Budget: {{budget.month_budget}}</p>
@@ -45,6 +46,7 @@
         <h4 class="modal-title" id="myModalLabel">Add Expense</h4>
       </div>
       <div class="modal-body">
+        {{log budget.id}}
         <form id="create-expense">
           <input type="number" name="expense[budget_id]" value="{{budget.id}}" hidden>
           <input type="date" name="expense[date]" min={{budget.start_date}} max={{endDay}} required>
@@ -68,16 +70,25 @@
 </div>
 <!-- ADD EXPENSE MODAL END -->
 
+<div id="expense-content" >
 <hr>
   <h4>Expenses</h4>
-    <div id="expense-view">
+  <form id="index-expenses" hidden>
+    <input type="submit" id='index-button' value="View Expenses">
+  </form>
+    <div id="expense-view" data-id="{{budget.id}}">
       {{#each expense as |expense|}}
         <p>Date: {{expense.date}}</p>
         <p>Cost: {{expense.cost}}</p>
         <p>Type: {{expense.expense_category}}</p>
+        <form class="delete-expense" data-id="{{budget.id}}">
+          <input type="number" placeholder="Expense ID" value="{{expense.id}}" name="expense[id]" hidden required>
+          <input type="submit" class="btn-xs btn-default" value="Delete">
+        </form>
         <hr>
       {{/each}}
     </div>
+  </div>
   <br>
   <a class="backToBudgets" href="#">Back to Budgets</a>
 </div>

@@ -1,6 +1,5 @@
 const budgetInfo = require('../templates/show-budget-template.handlebars')
 const budgetTemplate = require('../templates/index-budget-template.handlebars')
-const newUserBudget = require('../templates/create-first-budget.handlebars')
 const moment = require('moment')
 moment().format()
 
