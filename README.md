@@ -23,7 +23,8 @@ This web app allows users to set a monthly budget and log their expenses. The ap
 
 ---
 ### Planning
-For this project, I wanted to spend a good amount of time on the UI and making it as easy to navigate as possible. I started out with a basic wireframe which had four views. These views separated out different concerns and handle differing needs. As I progress through the project I began to think of more ways to divide concerns into more views. I ended up adding an additional view with plans for more to further optimize the pages layout. 
+For this project, I wanted to spend a good amount of time on the UI and making it as easy to navigate as possible. I started out with a basic wireframe which had four views. These views separated out different concerns and handle differing needs. As I progress through the project I began to think of more ways to divide concerns into more views. I ended up adding an additional view with plans for more to further optimize the pages layout.
+
 ---
 ### Development Process:
 I started out by creating basic forms for all CRUD actions for my three resources (users, budgets, and expenses). These forms submit given info to make the appropriate API calls. Once these basic features were functional, I worked on creating a UI that was more user friendly. This proved to be a more difficult and lengthy process. I split the forms across multiple views based on the info they displayed. This came out to about four or five views and managing the content on the page began to be a bit difficult. Additionally, as users added, updated, or deleted resources, I wanted the page to dynamically update so the user would not have to manually refresh the page. This involved making GET requests after pretty much every other action to make sure the page always contained current information. After a good bit of debugging, I believe I acheived a UI that is fairly user-friendly and have improvements in mind to take it even further.
