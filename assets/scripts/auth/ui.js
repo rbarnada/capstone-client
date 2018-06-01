@@ -60,7 +60,7 @@ const signInSuccess = function (data) {
   }
 
   const firstDay = yyyy + '-' + mm + '-' + dd
-  const nextMonth = yyyy + '-' + followingMonth + '-' + dd
+  // const nextMonth = yyyy + '-' + followingMonth + '-' + dd
   // console.log('first day is ', firstDay)
   // console.log('first day next month ', nextMonth)
 
@@ -123,9 +123,9 @@ const signInIndex = function (data) {
     // consider moving to handlebars
     $('#budget-display').append(`
       <div>
-        <p>Month: ${moment(budget.start_date).format('MMMM YYYY')}</p>
-        <p>Income: $${budget.income}</p>
-        <p>Budget: $${budget.month_budget}</p>
+        <p><strong>Month:</strong> ${moment(budget.start_date).format('MMMM YYYY')}</p>
+        <p><strong>Income:</strong> $${budget.income}</p>
+        <p><strong>Budget:</strong> $${budget.month_budget}</p>
         <form data-id="${budget.id}" class="show-budget">
           <input type="number" value="${budget.id}" name="budget[id]" hidden>
           <input type="submit" class="btn-default btn-xs" value="Details">

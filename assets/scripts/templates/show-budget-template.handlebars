@@ -1,12 +1,12 @@
 <div id="show-budget-info">
-  <h3>{{month}} Budget</h3>
-  <p>Income: ${{budget.income}}</p>
-  <p>Budget: ${{budget.month_budget}}</p>
-  <p>Total Spent: ${{total}}</p>
-  <p>Total Remaining: ${{remainder}}</p>
+  <h2>{{month}} Budget</h2>
+  <p><strong>Income:</strong> ${{budget.income}}</p>
+  <p><strong>Budget:</strong> ${{budget.month_budget}}</p>
+  <p><strong>Total Spent:</strong> ${{total}}</p>
+  <p><strong>Total Remaining:</strong> ${{remainder}}</p>
   <form data-id="{{budget.id}}" class="delete-budget">
     <input type="number" value="{{budget.id}}" name="budget[id]" hidden>
-    <input type="submit" class="btn-default btn-xs" value="Delete Budget">
+    <input type="submit" class="btn-danger btn-xs" value="Delete Budget">
   </form>
   <br>
 
@@ -68,7 +68,7 @@
   </div>
 </div>
 <!-- ADD EXPENSE MODAL END -->
-{{log expense}}
+
 <!-- UPDATE EXPENSE MODAL START -->
 <div class="modal fade" id="update-expense-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -110,13 +110,13 @@
   </form>
     <div id="expense-view" data-id="{{budget.id}}">
       {{#each expense as |expense|}}
-        <p>Date: {{expense.date}}</p>
-        <p>Cost: ${{expense.cost}}</p>
-        <p>Type: {{expense.expense_category}}</p>
+        <p><strong>Date:</strong> {{expense.date}}</p>
+        <p><strong>Cost:</strong> ${{expense.cost}}</p>
+        <p><strong>Type:</strong> {{expense.expense_category}}</p>
         <button type="button" id="update-expense-modal-button" class="btn-xs btn-default update-expense-modal-button" data-id="{{expense.id}}" data-toggle="modal" data-target="#update-expense-modal">Update</button>
         <form class="delete-expense">
           <input type="number" placeholder="Expense ID" value="{{expense.id}}" name="expense[id]" hidden required>
-          <input type="submit" class="btn-xs btn-default" value="Delete">
+          <input type="submit" class="btn-xs btn-danger" value="Delete">
         </form>
         <hr>
       {{/each}}
