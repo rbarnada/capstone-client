@@ -75,21 +75,23 @@ const indexBudgetsSuccess = function (data) {
     const dateSplit = date.split('-')
     return dateSplit[1]
   }
-
+  // use this
   const sortDates = function () {
     for (let i = 0; i < sorted.length; i++) {
       if (findMonth(sorted[i].start_date) === mm) {
         // console.log('true')
-        return
+        return $('#create-prompt').empty()
       } else {
         // console.log('false')
-        return $('#create-prompt').append(`
-            <p class='add-form-message'>Notice: You have deleted this month's budget. Click <a class="add-first-form" href="#">here</a> to add one</p>
-            `)
+        $('#create-prompt').empty()
+        $('#create-prompt').append(`
+          <p class='add-form-message'>Notice: You have deleted this month's budget. Click <a class="add-first-form" href="#">here</a> to add one</p>
+        `)
       }
     }
   }
   sortDates()
+
   // console.log('sorted is ', sorted)
   // sorted.some(function (budget) {
   //   if (findMonth(budget.start_date) === mm) {
