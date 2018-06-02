@@ -1,6 +1,8 @@
+import Chart from 'chart.js'
 const budgetInfo = require('../templates/show-budget-template.handlebars')
 const budgetTemplate = require('../templates/index-budget-template.handlebars')
 const createBudgetTemplate = require('../templates/create-new-budget.handlebars')
+// const Chart = require('chart.js')
 const moment = require('moment')
 moment().format()
 
@@ -185,6 +187,111 @@ const showBudgetSuccess = function (data) {
   $('#show-budget-info').remove()
   $('.budget').remove()
   $('#budget-display').append(getBudgetInfo)
+
+  // arrays to store expense costs in for graph
+  const rentArr = []
+  const utilArr = []
+  const grocArr = []
+  const autoArr = []
+  const shopArr = []
+  const dineArr = []
+  const medArr = []
+  const eduArr = []
+  const otherArr = []
+
+  // loops thru expenses and pushes cost values into corresponding array
+  data.budget.expenses.forEach(function (expense) {
+    const category = expense.expense_category
+    if (category === 'Rent') rentArr.push(expense.cost)
+    if (category === 'Utilities') utilArr.push(expense.cost)
+    if (category === 'Groceries') grocArr.push(expense.cost)
+    if (category === 'Auto/Transportation') autoArr.push(expense.cost)
+    if (category === 'Shopping/Entertainment') shopArr.push(expense.cost)
+    if (category === 'Restaurant/Dining') dineArr.push(expense.cost)
+    if (category === 'Medical') medArr.push(expense.cost)
+    if (category === 'Eduation') eduArr.push(expense.cost)
+    if (category === 'Other') otherArr.push(expense.cost)
+  })
+
+  const sumArr = function (total, num) {
+    return total + num
+  }
+
+  // totals each array and saves to variable to be passed in as graph data
+  const rentTotal = rentArr.reduce(sumArr, 0)
+  const utilTotal = utilArr.reduce(sumArr, 0)
+  const grocTotal = grocArr.reduce(sumArr, 0)
+  const autoTotal = autoArr.reduce(sumArr, 0)
+  const shopTotal = shopArr.reduce(sumArr, 0)
+  const dineTotal = dineArr.reduce(sumArr, 0)
+  const medTotal = medArr.reduce(sumArr, 0)
+  const eduTotal = eduArr.reduce(sumArr, 0)
+  const otherTotal = otherArr.reduce(sumArr, 0)
+
+  // graph
+  const ctx = $('#myChart')
+  const myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Rent', 'Utilities', 'Groceries', 'Auto/Transportation', 'Shopping/Entertainment', 'Restaurant/Dining', 'Medical', 'Education', 'Other'],
+      datasets: [{
+        label: 'Total Spent',
+        data: [rentTotal, utilTotal, grocTotal, autoTotal, shopTotal, dineTotal, medTotal, eduTotal, otherTotal],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(159, 227, 221, 0.2)',
+          'rgba(225, 15, 200, 0.2)',
+          'rgba(108, 113, 117, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255,99,132,1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(159, 227, 221, 1)',
+          'rgba(225, 15, 200, 1)',
+          'rgba(108, 113, 117, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      // legend: {
+      //   position: 'left'
+      // },
+      animation: {
+        animateScale: false,
+        animateRotate: false
+      },
+      tooltips: {
+        callbacks: {
+          title: function (tooltipItem, data) {
+            return data['labels'][tooltipItem[0]['index']]
+          },
+          label: function (tooltipItem, data) {
+            return '$' + data['datasets'][0]['data'][tooltipItem['index']]
+          },
+          afterLabel: function (tooltipItem, data) {
+            const dataset = data.datasets[tooltipItem.datasetIndex]
+            const total = dataset.data.reduce(function (previousValue, currentValue, currentIndex, array) {
+              return previousValue + currentValue
+            })
+            const currentValue = dataset.data[tooltipItem.index]
+            const precentage = Math.floor(((currentValue / total) * 100) + 0.5)
+            return precentage + '%'
+          }
+        },
+        displayColors: false
+      }
+    }
+  })
 
   $('form').trigger('reset')
 }

@@ -5,8 +5,17 @@ body {
   background-color: #F4F7E3;
 }
 
+canvas {
+  border: 1px solid black;
+}
+
 .body-content {
   margin-top: 100px;
+}
+
+.graph {
+  height: 250px;
+  width: 750px;
 }
 
 .hidden {
