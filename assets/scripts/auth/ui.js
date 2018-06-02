@@ -7,18 +7,15 @@ const moment = require('moment')
 moment().format()
 
 const signUpSuccess = function (data) {
-  // console.log('successful signup')
   $('#up-message').text('Successfully signed up. Sign in to continue')
   $('#up-message').css('background-color', '#E0F0D9')
   setTimeout(() => $('#up-message').text(''), 3000)
   setTimeout(() => $('#up-message').css('background-color', 'white'), 3000)
-  // console.log(data)
   $('#sign-up-modal').modal('hide')
   $('form').trigger('reset')
 }
 
 const signUpFailure = function (data) {
-  // console.log('signup failure')
   $('#up-message').text('Failure signing up')
   $('#up-message').css('background-color', '#F2DEDE')
   setTimeout(() => $('#up-message').text(''), 3000)
@@ -27,15 +24,14 @@ const signUpFailure = function (data) {
 }
 
 const signInSuccess = function (data) {
-  // $('form').trigger('reset')
-  // console.log('successful signin')
   $('#status-message').text('Successfully signed in')
   $('#status-message').css('background-color', '#E0F0D9')
   setTimeout(() => $('#status-message').text(''), 3000)
 
-  // console.log(data.user.budgets)
-
+  // stores token to be used for autheticating tasks
   store.user = data.user
+
+  // Hides/shows auth buttons
   $('#start').modal('hide')
   $('#sign-in').addClass('hidden')
   $('#sign-up').addClass('hidden')
@@ -44,8 +40,10 @@ const signInSuccess = function (data) {
   $('#start-modal-button').addClass('hidden')
   $('#change-password-modal-button').removeClass('hidden')
 
+  // creates variable set for first day of following month
+  // used when creating budget for next month
+  // This may be unused currently as similar functionality exist below. TEST
   const today = new Date()
-  // console.log(today)
   const dd = '01'
   let mm = today.getMonth() + 1
   let followingMonth = today.getMonth() + 2
@@ -68,12 +66,15 @@ const signInSuccess = function (data) {
     startDate: firstDay
   })
 
-  // $('.body-content').append(getNewUserBudget)
+  // on sign in, if user has no budgets, load welcome screen to create
+  // if user has budgets, send to budgets index
   if (data.user.budgets.length === 0) {
     $('.body-content').append(getNewUserBudget)
   } else {
     $('.body-content').append(budgetTemplate)
   }
+
+  $('form').trigger('reset')
 }
 
 // THIS IS REPEATED IN BUDGET UI. FIND PROPER PLACE FOR IT
@@ -88,7 +89,6 @@ const signInIndex = function (data) {
     const dateB = new Date(b.start_date)
     return dateA - dateB
   })
-  // console.log(sorted)
 
   const today = new Date()
   let mm = today.getMonth() + 1
@@ -102,19 +102,8 @@ const signInIndex = function (data) {
     return dateSplit[1]
   }
 
-  // const sortDates = function () {
-  //   for (let i = 0; i < sorted.length; i++) {
-  //     if (findMonth(sorted[i].start_date) === mm) {
-  //       // console.log('true')
-  //       return
-  //     } else {
-  //       // console.log('false')
-  //       return $('#create-prompt').append(`
-  //           <p class='add-form-message'>Notice: You have deleted this month's budget. Click <a class="add-first-form" href="#">here</a> to add one</p>
-  //           `)
-  //     }
-  //   }
-  // }
+  // checks to see if the current month's budget was deleted
+  // if it was, prompt user to recreate
   const sortDates = function () {
     for (let i = 0; i < sorted.length; i++) {
       if (findMonth(sorted[i].start_date) === mm) {
@@ -131,10 +120,9 @@ const signInIndex = function (data) {
   }
   sortDates()
 
+  // Index display data
+  // consider moving to handlebars
   sorted.forEach(function (budget) {
-    // console.log('month is ', moment(budget.start_date).format('MMMM'))
-    // Index display data
-    // consider moving to handlebars
     $('#budget-display').append(`
       <div>
         <p><strong>Month:</strong> ${moment(budget.start_date).format('MMMM YYYY')}</p>
@@ -149,12 +137,10 @@ const signInIndex = function (data) {
     `)
   })
 
-  // $('#create-prompt').append(getCreateNewBudget)
-
+  // checks to see if budget exists for next month. If not, prompts user to create
   for (let i = 0; i < data.budgets.length; i++) {
     // console.log(data.budgets[i].start_date)
     if (findMonth(data.budgets[i].start_date) === mm) {
-      // console.log(data.budgets[i].start_date)
       // console.log('Dates are equal')
       if (i === data.budgets.length - 1) {
         // console.log('last item, prompt add item')
@@ -168,6 +154,8 @@ const signInIndex = function (data) {
     }
   }
 }
+
+// creates variable for first of next month to be used when creating budget for that month
 const addForm = function () {
   const thisDay = new Date()
   const dd = '01'
@@ -181,6 +169,7 @@ const addForm = function () {
   const getCreateNewBudget = createBudgetTemplate({
     startDate: nextMonth
   })
+
   $('.add-form-message').remove()
   $('#create-prompt').append(getCreateNewBudget)
 }

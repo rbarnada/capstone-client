@@ -16,24 +16,8 @@ const createBudgetSuccess = function (data) {
   setTimeout(() => $('#status-message').text(''), 3000)
   $('form').trigger('reset')
 
-  // console.log(data)
-  // after creation of first budget, switch to budget manager view
-  // if (data.budget.length === 0) {
-  //   $('.body-content').append(newUserBudget)
-  // } else {
-  //   // $('#welcome').remove()
-  //   // $('.budget').remove()
-  //   // $('.body-content').append(budgetTemplate)
-  // }
-
   return data
 }
-
-// const createFirstBudgetSuccess = function (data) {
-//   // console.log('data in first success is ', data)
-//   $('#welcome').remove()
-//   $('.body-content').append(budgetInfo)
-// }
 
 const createBudgetFailure = function (data) {
   // console.log('Failed to create budget')
@@ -92,25 +76,6 @@ const indexBudgetsSuccess = function (data) {
   }
   sortDates()
 
-  // console.log('sorted is ', sorted)
-  // sorted.some(function (budget) {
-  //   if (findMonth(budget.start_date) === mm) {
-  //     // console.log('true')
-  //     return
-  //   } else {
-  //     // console.log('false')
-  //     return $('#create-prompt').append(`
-  //   <p class='add-form-message'>Notice: You have deleted this month's budget. Click <a class="add-first-form" href="#">here</a> to add one</p>
-  //         `)
-  //   }
-  // })
-
-  // console.log('start date is ', data.budgets[0].start_date)
-
-  // for (let i = 0; i < data.budgets.length; i++) {
-
-  // }
-
   sorted.forEach(function (budget) {
     // console.log('month is ', moment(budget.start_date).format('MMMM'))
     // Index display data
@@ -130,31 +95,15 @@ const indexBudgetsSuccess = function (data) {
     `)
   })
 
-  // let nextMonth = mm
-  // const prependZero = function (month) {
-  //   if (nextMonth < 10) {
-  //     nextMonth = '0' + nextMonth
-  //   }
-  // }
-  //
-  // const addMonth = function (month) {
-  //   nextMonth = month
-  //   // console.log(nextMonth)
-  //   nextMonth = parseInt(nextMonth)
-  //   nextMonth = nextMonth + 1
-  //   prependZero(nextMonth)
-  //   // console.log(nextMonth)
-  //   return nextMonth
-  // }
-  // $('form').trigger('reset')
-
+  // Check to see if a budget exists for the following month
+  // This may need to be changed when additional months are added. Review after
+  // adding functionality for more months
   for (let i = 0; i < data.budgets.length; i++) {
-    // console.log(data.budgets[i].start_date)
+    // checks to see if the budget start date equals this month
+    // if so, checks to see if that month is also the last one in the array
+    // if it is last, prompt creation on budget for following month
     if (findMonth(data.budgets[i].start_date) === mm) {
-      // console.log(data.budgets[i].start_date)
-      // console.log('Dates are equal')
       if (i === data.budgets.length - 1) {
-        // console.log('last item, prompt add item')
         $('#create-prompt').append(`
           <p>Notice: You do not have a budget set up for next month. Click <a class="add-form" href="#">here</a> to add one</p>
           `)
@@ -175,19 +124,17 @@ const indexBudgetsFailure = function () {
 }
 
 const showBudgetSuccess = function (data) {
-  // console.log(data.budget.expenses)
   $('#welcome').remove()
+
   // Takes string date and split on dash to create array
   // Array values are strings, parseInt to make number
   // Use number - 1 to get correct month from monthNames array
   const getMonth = function (month) {
     const dateArr = month.split('-') // [2018, 02, 26]
-    // console.log(dateArr[1])
     const normalizedNum = parseInt(dateArr[1]) - 1
     return monthNames[normalizedNum]
   }
   const currentMonth = getMonth(data.budget.start_date)
-  // console.log(currentMonth)
 
   // calculates total money spent during current budget
   const findTotal = function () {
@@ -195,10 +142,11 @@ const showBudgetSuccess = function (data) {
     const findSum = function (total, num) {
       return total + num
     }
+
     data.budget.expenses.forEach(function (expense) {
       spentArr.push(expense.cost)
-      // console.log(spentArr)
     })
+
     if (data.budget.expenses.length === 0) {
       return 0
     } else {
@@ -207,23 +155,22 @@ const showBudgetSuccess = function (data) {
     }
   }
   const totalSpent = findTotal()
-  // console.log(totalSpent)
 
+  // Calculate end date by splitting date into array values and removing the day
+  // Rejoins month and year, the use moment to find the total days in that given month
+  // Takes date and split again and replaces the day value in the array with value obtained from moment
   const findEndDate = function (month) {
     const dateArr = month.split('-')
     dateArr.pop()
     const formattedDate = dateArr.join('-')
-    // console.log(formattedDate)
     const lastDay = moment(formattedDate, 'YYYY-MM').daysInMonth()
     const newDateArr = month.split('-')
     newDateArr[2] = lastDay
     const endDate = newDateArr.join('-')
-    // console.log(month)
-    // console.log(endDate)
     return endDate
   }
-  // findEndDate(data.budget.start_date)
 
+  // Values to pass to handlebars file for viewing single budget
   const getBudgetInfo = budgetInfo({
     budget: data.budget,
     month: currentMonth,
@@ -233,27 +180,13 @@ const showBudgetSuccess = function (data) {
     endDay: findEndDate(data.budget.start_date)
   })
 
+  // Removes index handlebar file and previous single budget content in case of refresh
+  // Adds page content/refreshes if already on page
   $('#show-budget-info').remove()
   $('.budget').remove()
   $('#budget-display').append(getBudgetInfo)
-  // Show view with delete button
-  // consider moving to handlebars
-  // $('#budget-display').append(`
-  //   <div>
-  //     <h3>${getMonth(data.budget.start_date)} Budget</h3>
-  //     <p>Income: ${data.budget.income}</p>
-  //     <p>Budget: ${data.budget.month_budget}</p>
-  //     <p>Total Spent: ${totalSpent()}</p>
-  //     <p>Total Remaining: ${data.budget.month_budget - totalSpent()}
-  //     <form data-id="${data.budget.id}" class="delete-budget">
-  //       <input type="number" value="${data.budget.id}" name="budget[id]" hidden>
-  //       <input type="submit" class="btn-default btn-xs" value="Delete Budget">
-  //     </form>
-  //   </div>
-  // `)
-  $('form').trigger('reset')
 
-  // console.log(moment('2012-01', 'YYYY-MM').daysInMonth())
+  $('form').trigger('reset')
 }
 
 const showBudgetFailure = function () {
@@ -268,10 +201,11 @@ const updateBudgetSuccess = function (data) {
   $('#status-message').text('Budget Updated')
   $('#status-message').css('background-color', '#d5fdd5')
   setTimeout(() => $('#status-message').html(''), 2000)
+
+  // Needed to remove all modal backdrop elements after AJAX call
   $('form').trigger('reset')
   $('body').removeClass('modal-open')
   $('.modal-backdrop').remove()
-  // console.log(data)
 }
 const updateBudgetFailure = function (data) {
   $('#status-message').text('Failed to update budget')
@@ -286,8 +220,6 @@ const deleteBudgetSuccess = function (data) {
   setTimeout(() => $('#status-message').text(''), 3000)
   $('form').trigger('reset')
 
-  // $('#show-budget-info').remove()
-  // $('.body-content').append(budgetTemplate)
   return data
 }
 
@@ -298,11 +230,13 @@ const deleteBudgetFailure = function (data) {
   $('form').trigger('reset')
 }
 
+// Used to return to index page from single budget view
 const returnToBudgets = function () {
   $('#show-budget-info').remove()
   $('.body-content').append(budgetTemplate)
 }
 
+//
 const addFirstForm = function () {
   const thisDay = new Date()
   const dd = '01'

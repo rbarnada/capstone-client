@@ -17,6 +17,7 @@ const createExpenseFailure = function (data) {
   $('form').trigger('reset')
 }
 
+// currently done in handlebars, may need to restore functionality later
 const indexExpensesSuccess = function (data) {
   // console.log(data.expenses)
   data.expenses.forEach(function (expense) {
