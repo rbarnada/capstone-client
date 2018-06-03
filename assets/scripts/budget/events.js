@@ -76,6 +76,12 @@ const onAddFirstForm = function (event) {
   ui.addFirstForm()
 }
 
+// const calcIncome = function (event) {
+//   event.preventDefault()
+//   const value = parseInt($(this).serialize().split('=').pop())
+//   console.log(value)
+// }
+
 const addHandlers = function () {
   $('.body-content').on('submit', '#create-budget', onCreateBudget)
   $('.body-content').on('submit', '#create-first-budget', onCreateFirstBudget)
@@ -85,6 +91,8 @@ const addHandlers = function () {
   $('.container').on('submit', '.delete-budget', onDeleteBudget)
   $('.container').on('click', '.backToBudgets', onIndexBudgets)
   $('.container').on('click', '.add-first-form', onAddFirstForm)
+  $('.container').on('click', '.add-first-form', onAddFirstForm)
+  // $('.container').on('submit', '#percentIncome', calcIncome)
 }
 
 module.exports = {
