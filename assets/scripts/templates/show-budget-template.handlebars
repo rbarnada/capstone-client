@@ -1,5 +1,5 @@
 <div id="show-budget-info">
-  <h2>{{month}} Budget</h2>
+  <h2 class="budget-title">{{month}} Budget</h2>
   <p><strong>Income:</strong> ${{budget.income}}</p>
   <p><strong>Budget:</strong> ${{budget.month_budget}}</p>
   <p><strong>Total Spent:</strong> ${{total}}</p>
@@ -106,22 +106,26 @@
 
 <div id="expense-content" >
 <hr>
-  <h4>Expenses</h4>
+  <h4>Expenses:</h4>
   <form id="index-expenses" hidden>
     <input type="submit" id='index-button' value="View Expenses">
   </form>
     <div id="expense-view" data-id="{{budget.id}}">
+      <div class="row">
       {{#each expense as |expense|}}
+        <div class="col-sm-4 col-md-3">
         <p><strong>Date:</strong> {{expense.date}}</p>
         <p><strong>Cost:</strong> ${{expense.cost}}</p>
         <p><strong>Type:</strong> {{expense.expense_category}}</p>
         <button type="button" id="update-expense-modal-button" class="btn-xs btn-default update-expense-modal-button" data-id="{{expense.id}}" data-toggle="modal" data-target="#update-expense-modal">Update</button>
-        <form class="delete-expense">
+        <form class="delete-expense expense-delete-button">
           <input type="number" placeholder="Expense ID" value="{{expense.id}}" name="expense[id]" hidden required>
           <input type="submit" class="btn-xs btn-danger" value="Delete">
         </form>
         <hr>
+      </div>
       {{/each}}
+    </div>
     </div>
   </div>
   <br>

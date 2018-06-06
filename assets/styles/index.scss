@@ -1,8 +1,9 @@
 $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
+$background: #f4f7e3;
 
 body {
-  background-color: #F4F7E3;
+  background-color: $background;
 }
 
 canvas {
@@ -11,6 +12,17 @@ canvas {
 
 .body-content {
   margin-top: 100px;
+}
+
+.budget-title {
+  text-align: center;
+}
+
+// .expense-delete-button {
+//   display: inline;
+// }
+.navbar-buttons {
+  margin-top: 15px;
 }
 
 .graph {

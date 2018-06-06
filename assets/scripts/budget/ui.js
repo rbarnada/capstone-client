@@ -115,6 +115,27 @@ const indexBudgetsSuccess = function (data) {
       // console.log('other item exists, no prompt')
     }
   }
+
+  // attempting to add multiple budgets
+  // console.log(parseInt(findMonth(data.budgets[data.budgets.length - 1].start_date)) + 1)
+  // console.log(data.budgets[data.budgets.length - 1].start_date)
+  //
+  // const addMonth = function () {
+  //   const lastBudgetDate = data.budgets[data.budgets.length - 1].start_date
+  //   console.log(lastBudgetDate)
+  //   const dd = '01'
+  //   let mm = parseInt(findMonth(lastBudgetDate)) + 1
+  //   const yyyy = lastBudgetDate.split('-')[0]
+  //
+  //   if (mm < 10) {
+  //     mm = '0' + mm
+  //   }
+  //
+  //   console.log(yyyy + '-' + mm + '-' + dd)
+  //   return yyyy + '-' + mm + '-' + dd
+  // }
+  // addMonth()
+
   return data
 }
 
@@ -171,6 +192,14 @@ const showBudgetSuccess = function (data) {
     const endDate = newDateArr.join('-')
     return endDate
   }
+
+  const expenseSort = data.budget.expenses.sort(function compare (a, b) {
+    const dateA = new Date(a.date)
+    const dateB = new Date(b.date)
+    return dateA - dateB
+  })
+
+  // console.log(expenseSort)
 
   // Values to pass to handlebars file for viewing single budget
   const getBudgetInfo = budgetInfo({
@@ -230,69 +259,72 @@ const showBudgetSuccess = function (data) {
 
   // graph
   const ctx = $('#myChart')
-  const myChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: ['Rent', 'Utilities', 'Groceries', 'Auto/Transportation', 'Shopping/Entertainment', 'Restaurant/Dining', 'Medical', 'Education', 'Other'],
-      datasets: [{
-        label: 'Total Spent',
-        data: [rentTotal, utilTotal, grocTotal, autoTotal, shopTotal, dineTotal, medTotal, eduTotal, otherTotal],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)',
-          'rgba(159, 227, 221, 0.2)',
-          'rgba(225, 15, 200, 0.2)',
-          'rgba(108, 113, 117, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255,99,132,1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-          'rgba(159, 227, 221, 1)',
-          'rgba(225, 15, 200, 1)',
-          'rgba(108, 113, 117, 1)'
-        ],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      // legend: {
-      //   position: 'left'
-      // },
-      animation: {
-        animateScale: false,
-        animateRotate: false
+  if (data.budget.expenses.length > 0) {
+    const myChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Rent', 'Utilities', 'Groceries', 'Auto/Transportation', 'Shopping/Entertainment', 'Restaurant/Dining', 'Medical', 'Education', 'Other'],
+        datasets: [{
+          label: 'Total Spent',
+          data: [rentTotal, utilTotal, grocTotal, autoTotal, shopTotal, dineTotal, medTotal, eduTotal, otherTotal],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(159, 227, 221, 0.2)',
+            'rgba(225, 15, 200, 0.2)',
+            'rgba(108, 113, 117, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255,99,132,1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(159, 227, 221, 1)',
+            'rgba(225, 15, 200, 1)',
+            'rgba(108, 113, 117, 1)'
+          ],
+          borderWidth: 1
+        }]
       },
-      tooltips: {
-        callbacks: {
-          title: function (tooltipItem, data) {
-            return data['labels'][tooltipItem[0]['index']]
-          },
-          label: function (tooltipItem, data) {
-            return '$' + data['datasets'][0]['data'][tooltipItem['index']]
-          },
-          afterLabel: function (tooltipItem, data) {
-            const dataset = data.datasets[tooltipItem.datasetIndex]
-            const total = dataset.data.reduce(function (previousValue, currentValue, currentIndex, array) {
-              return previousValue + currentValue
-            })
-            const currentValue = dataset.data[tooltipItem.index]
-            const precentage = Math.floor(((currentValue / total) * 100) + 0.5)
-            return precentage + '%'
-          }
+      options: {
+        // legend: {
+        //   position: 'left'
+        // },
+        animation: {
+          animateScale: false,
+          animateRotate: true
         },
-        displayColors: false
+        tooltips: {
+          callbacks: {
+            title: function (tooltipItem, data) {
+              return data['labels'][tooltipItem[0]['index']]
+            },
+            label: function (tooltipItem, data) {
+              return '$' + data['datasets'][0]['data'][tooltipItem['index']]
+            },
+            afterLabel: function (tooltipItem, data) {
+              const dataset = data.datasets[tooltipItem.datasetIndex]
+              const total = dataset.data.reduce(function (previousValue, currentValue, currentIndex, array) {
+                return previousValue + currentValue
+              })
+              const currentValue = dataset.data[tooltipItem.index]
+              const precentage = Math.floor(((currentValue / total) * 100) + 0.5)
+              return precentage + '%'
+            }
+          },
+          displayColors: false
+        }
       }
-    }
-  })
-
+    })
+  } else {
+    ctx.remove()
+  }
   $('form').trigger('reset')
 }
 

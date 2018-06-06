@@ -52,7 +52,7 @@ const onDeleteExpense = function (event) {
   event.preventDefault()
   const data = getFormFields(event.target)
   // console.log(data)
-  store.budgetId = $(event.target).parent().data().id
+  store.budgetId = $(event.target).parent().parent().parent().data().id
   // console.log(store.budgetId)
   api.deleteExpense(data)
     .then(ui.deleteExpenseSuccess)
