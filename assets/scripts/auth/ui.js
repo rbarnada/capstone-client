@@ -38,6 +38,7 @@ const signInSuccess = function (data) {
   $('#change-password').removeClass('hidden')
   $('#sign-out').removeClass('hidden')
   $('#start-modal-button').addClass('hidden')
+  $('.backToBudgets').removeClass('hidden')
   $('#change-password-modal-button').removeClass('hidden')
 
   // creates variable set for first day of following month
@@ -124,7 +125,7 @@ const signInIndex = function (data) {
   // consider moving to handlebars
   sorted.forEach(function (budget) {
     $('#budget-display').append(`
-      <div>
+      <div class="col-md-4">
         <p><strong>Month:</strong> ${moment(budget.start_date).format('MMMM YYYY')}</p>
         <p><strong>Income:</strong> $${budget.income}</p>
         <p><strong>Budget:</strong> $${budget.month_budget}</p>
@@ -133,7 +134,6 @@ const signInIndex = function (data) {
           <input type="submit" class="btn-default btn-xs" value="Details">
         </form>
       </div>
-      <hr>
     `)
   })
 
@@ -222,6 +222,7 @@ const signOutSuccess = function (data) {
   $('#sign-out').addClass('hidden')
   $('#start-modal-button').removeClass('hidden')
   $('#change-password-modal-button').addClass('hidden')
+  $('.backToBudgets').addClass('hidden')
   $('form').trigger('reset')
 }
 

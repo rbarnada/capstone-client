@@ -1,21 +1,32 @@
 <div id="show-budget-info">
-  <h2 class="budget-title">{{month}} Budget</h2>
-  <p><strong>Income:</strong> ${{budget.income}}</p>
-  <p><strong>Budget:</strong> ${{budget.month_budget}}</p>
-  <p><strong>Total Spent:</strong> ${{total}}</p>
-  <p><strong>Total Remaining:</strong> ${{remainder}}</p>
-  <form data-id="{{budget.id}}" class="delete-budget">
-    <input type="number" value="{{budget.id}}" name="budget[id]" hidden>
-    <input type="submit" class="btn-danger btn-xs" value="Delete Budget">
-  </form>
-  <br>
+  <h1 class="budget-title">{{month}} Budget</h1>
+  <br><br>
 
-  <button type="button" id="update-budget-modal-button" class="btn-xs btn-default" data-toggle="modal" data-target="#update-budget-modal">Update Budget</button>
-  <br>
-  <button type="button" id="add-expense-modal-button" class="btn-xs btn-default" data-toggle="modal" data-target="#add-expense-modal">Add Expense</button>
+  <div class="row">
+    <div class="col-md-3 budget-stats">
+      <p><strong>Income:</strong> ${{budget.income}}</p>
+      <p><strong>Budget:</strong> ${{budget.month_budget}}</p>
+      <p><strong>Total Spent:</strong> ${{total}}</p>
+      <p><strong>Total Remaining:</strong> ${{remainder}}</p>
 
-  <canvas id="myChart"></canvas>
+      <button type="button" id="update-budget-modal-button" class="btn-sm btn-default" data-toggle="modal" data-target="#update-budget-modal">Update Budget</button>
 
+      <br>
+
+      <form data-id="{{budget.id}}" class="delete-budget">
+        <input type="number" value="{{budget.id}}" name="budget[id]" hidden>
+        <input type="submit" class="btn-danger btn-sm" value="Delete Budget">
+      </form>
+      <br>
+      <!-- <button type="button" id="add-expense-modal-button" class="btn-xs btn-default" data-toggle="modal" data-target="#add-expense-modal">Add Expense</button> -->
+    </div>
+
+  <div class="col-md-9">
+  <!-- <div class="chart-container"> -->
+    <canvas id="myChart"></canvas>
+  <!-- </div> -->
+</div>
+</div>
 <!-- UPDATE BUDGET MODAL START -->
   <div class="modal fade" id="update-budget-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -103,10 +114,31 @@
   </div>
 </div>
 
-
-<div id="expense-content" >
+<br>
 <hr>
-  <h4>Expenses:</h4>
+
+<div id="expense-content">
+  <h3>Expenses:</h3>
+  <form id="create-expense" class="form-inline">
+    <span> Add New Expense:</span>
+    <input type="number" name="expense[budget_id]" value="{{budget.id}}" hidden>
+    <input type="date" class="form-control" name="expense[date]" min={{budget.start_date}} max={{endDay}} required>
+    <input type="number" class="form-control" step=".01" name="expense[cost]" min="0" placeholder="Cost of Expense" required>
+    <select name="expense[expense_category]" class="form-control" required>
+      <option value="" disabled selected hidden>Expense Type</option>
+      <option value="Rent">Rent</option>
+      <option value="Utilities">Utilities</option>
+      <option value="Groceries">Groceries</option>
+      <option value="Auto/Transportation">Auto/Transportation</option>
+      <option value="Shopping/Entertainment">Shopping/Entertainment</option>
+      <option value="Restaurant/Dining">Restaurant/Dining</option>
+      <option value="Medical">Medical</option>
+      <option value="Eduation">Education</option>
+      <option value="Other">Other</option>
+    </select>
+    <input type="submit" class="btn btn-default" value="Submit">
+  </form>
+  <br><br>
   <form id="index-expenses" hidden>
     <input type="submit" id='index-button' value="View Expenses">
   </form>
@@ -129,5 +161,5 @@
     </div>
   </div>
   <br>
-  <a class="backToBudgets" href="#">View All Budgets</a>
+  <!-- <a class="backToBudgets" href="#">View All Budgets</a> -->
 </div>

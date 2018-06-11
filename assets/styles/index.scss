@@ -10,28 +10,43 @@ canvas {
   border: 1px solid black;
 }
 
+.chart-container {
+  width: 70%;
+}
+
 .body-content {
   margin-top: 100px;
 }
 
 .budget-title {
   text-align: center;
+  font-weight: 900;
 }
 
-// .expense-delete-button {
-//   display: inline;
-// }
+.expense-delete-button {
+  display: inline;
+}
+
 .navbar-buttons {
   margin-top: 15px;
 }
 
-.graph {
-  height: 250px;
-  width: 750px;
+.nav-button {
+  margin-right: 5px;
+}
+
+.budget-stats {
+  font-size: 24px;
 }
 
 .hidden {
   display: none;
+}
+
+.info-box {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 2px;
 }
 
 .navbar-inverse {

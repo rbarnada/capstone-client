@@ -84,7 +84,7 @@ const indexBudgetsSuccess = function (data) {
     // consider moving to handlebars
 
     $('#budget-display').append(`
-      <div>
+      <div class="col-md-4">
         <p><strong>Month:</strong> ${moment(budget.start_date).format('MMMM YYYY')}</p>
         <p><strong>Income:</strong> $${budget.income}</p>
         <p><strong>Budget:</strong> $${budget.month_budget}</p>
@@ -93,7 +93,6 @@ const indexBudgetsSuccess = function (data) {
           <input type="submit" class="btn-default btn-xs" value="Details">
         </form>
       </div>
-      <hr>
     `)
   })
 

@@ -26,10 +26,14 @@
           <div class="col-xs-6 navbar-buttons">
             <span id="sign-in-space"></span>
             <button type="button" class="btn-sm btn-default pull-right nav-button" data-toggle="modal" id='start-modal-button' data-target="#start">Sign Up / Sign In</button>
+
             <form id="sign-out" class='form-field pull-right nav-button hidden'>
               <input type="submit" class="btn-sm btn-default" value="Sign Out">
             </form>
+
             <button type="button" id="change-password-modal-button" class="btn-sm btn-default pull-right nav-button hidden" data-toggle="modal" data-target="#change-pass-modal">Change Password</button>
+
+            <button type="button"  class="btn-sm btn-default backToBudgets pull-right nav-button hidden">View All Budgets</button>
           </div>
         </div>
       </div>
@@ -124,7 +128,12 @@
       </div>
       <!-- CHANGE PASSWORD MODAL END -->
     </div>
-    <div id="budget-display"></div>
+    <div id="budget-display" class="row"></div>
+    <!-- <div class="row">
+      <div class="col-md-6 info-box">
+        ...
+      </div>
+    </div> -->
   </div>
 </body>
 
