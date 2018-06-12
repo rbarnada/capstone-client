@@ -119,7 +119,7 @@
 
 <div id="expense-content">
   <h3>Expenses:</h3>
-  <form id="create-expense" class="form-inline">
+  <form class="form-inline create-expense">
     <span> Add New Expense:</span>
     <input type="number" name="expense[budget_id]" value="{{budget.id}}" hidden>
     <input type="date" class="form-control" name="expense[date]" min={{budget.start_date}} max={{endDay}} required>

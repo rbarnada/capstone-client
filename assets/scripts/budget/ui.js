@@ -45,6 +45,7 @@ const indexBudgetsSuccess = function (data) {
   // console.log(sorted)
 
   if (data.budgets.length === 0) {
+    $('#create-prompt').empty()
     $('#create-prompt').append(`
 <p class='add-form-message'>Notice: You have deleted your only budget. Click <a class="add-first-form" href="#">here</a> to add one</p>
       `)
@@ -84,7 +85,7 @@ const indexBudgetsSuccess = function (data) {
     // consider moving to handlebars
 
     $('#budget-display').append(`
-      <div class="col-md-4">
+      <div class="col-sm-4">
         <p><strong>Month:</strong> ${moment(budget.start_date).format('MMMM YYYY')}</p>
         <p><strong>Income:</strong> $${budget.income}</p>
         <p><strong>Budget:</strong> $${budget.month_budget}</p>
@@ -390,6 +391,7 @@ const addFirstForm = function () {
   })
 
   $('.add-form-message').remove()
+  $('#create-prompt').empty()
   $('#create-prompt').append(getCreateNewBudget)
 }
 

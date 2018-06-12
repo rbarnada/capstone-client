@@ -69,7 +69,7 @@ const onUpdateButtonPress = function (event) {
 }
 
 const addHandlers = function () {
-  $('.container').on('submit', '#create-expense', onCreateExpense)
+  $('.container').on('submit', '.create-expense', onCreateExpense)
   $('.container').on('submit', '#index-expenses', onIndexExpenses)
   $('.container').on('submit', '#show-expense', onShowExpense)
   $('.container').on('submit', '#update-expense', onUpdateExpense)

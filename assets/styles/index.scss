@@ -1,9 +1,11 @@
 $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:500,600,700|Permanent+Marker');
 $background: #f4f7e3;
 
 body {
   background-color: $background;
+  font-family: 'IBM Plex Sans', sans-serif;
 }
 
 canvas {
@@ -41,6 +43,26 @@ canvas {
 
 .hidden {
   display: none;
+}
+
+.home-image {
+  max-height: 75vh;
+  max-width: 25vw;
+}
+
+@media screen and (max-width: 510px) {
+  .home-image-container {
+    display: none;
+  }
+}
+
+.home-title {
+  font-family: 'Permanent Marker', sans-serif;
+  font-size: 36px;
+}
+
+.info-blurb {
+  margin-top: 10%;
 }
 
 .info-box {
